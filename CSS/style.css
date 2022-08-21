@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+:root {
+    --main: #781C68;
+    --second: #319DA0;
+    --light: #FFF5E1;
+    --light2: #FFD39A;
+    --dark: #180A29;
+}
+
+.left-login {
+    display: none;
+}
+
+.right-register {
+    display: none;
+}
