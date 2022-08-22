@@ -1,4 +1,3 @@
-<?php include("register-process.php"); ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -21,6 +20,7 @@
     </head>
     <body>
         <header></header>
+
         <main>
             <div class="container left-register">
                 <h1>Register</h1>
@@ -38,9 +38,7 @@
                     <label for="password"></label>
                     <input type="password" id="password-register" name="password" placeholder="Password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
                     <input type="submit" value="Submit" name="submit">
-                </form>
-            </div>
-
+                    
             <div class="container right-register">
                 <img src="Photos/Register.jpg" alt="Register laptop photo">
             </div>
