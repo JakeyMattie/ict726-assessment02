@@ -38,6 +38,8 @@
                     <label for="password"></label>
                     <input type="password" id="password-register" name="password" placeholder="Password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
                     <input type="submit" value="Submit" name="submit">
+                </form>
+            </div>
                     
             <div class="container right-register">
                 <img src="Photos/Register.jpg" alt="Register laptop photo">
