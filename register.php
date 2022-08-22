@@ -24,26 +24,27 @@
         <main>
             <div class="container left-register">
                 <h1>Register</h1>
-                <form action="register-process.php" method="post">
+                <form method="post">
                     <label for="username"></label>
-                    <input type="text" id="username-register" name="username" placeholder="Username">
+                    <input type="text" id="username-register" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">
+                    <?php echo isset($user_taken) ? "Username ". $username. " is taken." : "" ?>
                     <label for="firstname"></label>
-                    <input type="text" id="firstname-register" name="firstname" placeholder="First Name">
+                    <input type="text" id="firstname-register" name="firstname" placeholder="First Name" value="<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>">
                     <label for="lastname"></label>
-                    <input type="text" id="lastname-register" name="lastname" placeholder="Last Name">
+                    <input type="text" id="lastname-register" name="lastname" placeholder="Last Name" value="<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>">
                     <label for="email"></label>
-                    <input type="text" id="email-register" name="email" placeholder="Email">
+                    <input type="email" id="email-register" name="email" placeholder="Email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
+                    <?php echo isset($email_taken)  ? "Email ". $email. " is taken." : "" ?>
                     <label for="password"></label>
-                    <input type="password" id="password-register" name="password" placeholder="Password">
-                    <input type="submit" value="Submit">
+                    <input type="password" id="password-register" name="password" placeholder="Password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
+                    <input type="submit" value="Submit" name="submit">
                 </form>
             </div>
-
+                    
             <div class="container right-register">
                 <img src="Photos/Register.jpg" alt="Register laptop photo">
             </div>
         </main>
-
         <footer></footer>
     </body>
 </html>
