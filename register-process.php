@@ -18,21 +18,41 @@
         $err_no = $result.mysqli_errno($db_connection);
         $err_message = $result.mysqli_error($db_connection);
 
-        if($err_no == 1062){
-            if(strpos($err_message, 'email') !== false){
-                $email_taken = TRUE;
-                // echo "Email " . $email. " is already in use by a different account";
-                header("register.php");
-            }else if(strpos($err_message, 'username') !== false){
-                // echo "Username ". $username. " is already please choose a different one";
-                $user_taken = TRUE;
-                header("Location: register.php");
-            }
-        }else if($err_no == 10){
-            header("Location: login.php");
-        }else{
-            echo "ERROR CODE: " . $err_no . "<br> ERROR MESSAGE: " . $err_message;
+        //check for 
+        switch ($err_no){
+            case 1062:
+                if(strpos($err_message, 'username') !== false){
+                    $user_taken = TRUE;
+                    break;
+                }else if(strpos($err_message, 'email') !== false){
+                    $email_taken = TRUE;
+                    break;
+                }
+                
+            case 10:
+                header("Location: login.php");
+                break;
+            default:
+                echo $err_no . "<br>" . $err_message;
+                break;
         }
+        // if($err_no !== 10){
+        //     if($err_no == 1062){
+        //         if(strpos($err_message, 'email') !== false){
+        //             $email_taken = TRUE;
+        //             // echo "Email " . $email. " is already in use by a different account";
+        //             header("Location: register.php");
+        //         }else if(strpos($err_message, 'username') !== false){
+        //             // echo "Username ". $username. " is already please choose a different one";
+        //             $user_taken = TRUE;
+        //             header("Location: register.php");
+        //         }else{
+        //             echo $err_no . "<br>" . $err_message;
+        //         }
+        //     }
+        // }else{
+        //     header("Location: login.php");
+        // }
     }
 
 ?>
