@@ -9,19 +9,25 @@
     --main: #781C68;
     --second: #319DA0;
     --light: #FFF5E1;
+    --light-opacity25: rgba(255, 245, 225, 0.25);
     --light2: #FFD39A;
     --dark: #180A29;
+    --dark-opacity25: rgba(24, 10, 41, 0.25);
 }
 
 body, html {
     height: 100%;
+    width: 100%;
 }
 
-body {
+.flex-wrapper {
     display: flex;
-    min-height: 100vh;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.background-color {
+    background-color: var(--main);
 }
 
 /* ----- Text Formatting */
@@ -32,83 +38,236 @@ h1 {
     letter-spacing: 2.5px;
 }
 
-/* ========== LOGIN.php */
+/* ----- Object Formatting */
 
-.main-container {
-    background: var(--main);
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.left-login {
-    display: none;
-}
-
-.right-login {
+.submit {
     width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.login-header {
-    font-size: 3rem;
-    color: var(--light);
-}
-
-.login-form-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2em;
-}
-
-.login-form-input {
-    width: 80%;
     font-size: 1rem;
-    background-color: transparent;
-    color: var(--light);
-    border: 2px var(--light2) solid;
-    border-radius: 50px;
-    padding: 1.25em;
-}
-
-.login-form-input::placeholder {
-    text-transform: uppercase;
-    color: rgba(255, 245, 225, 0.25);
-}
-
-.login-form-input:focus {
-    color: var(--light);
-    outline: none;
-}
-
-#submit-form-login {
-    width: 80%;
-    font-size: 1rem;
-    text-transform: uppercase;
     font-weight: 700;
-    background-color: var(--light2);
-    color: var(--main);
+    text-transform: uppercase;
+    letter-spacing: 2px;
     border: none;
     border-radius: 50px;
     padding: 1.25em;
 }
 
-.login-para {
+.submit:hover,
+.submit:focus {
+    background-color: var(--second);
+    color: var(--main);
+    cursor: pointer;
+}
+
+.submit--light {
+    background-color: var(--light2);
+    color: var(--main);
+}
+
+.submit--dark {
+    background-color: var(--main);
+    color: var(--light);
+}
+
+/* ----- Container Formatting */
+
+.mobile-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* !! REMOVE VIA JAVASCRIPT !! */
+}
+
+/* ----- Form Formatting */
+
+.form-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form__input {
+    width: 100%;
+    font-size: 1rem;
+    background-color: transparent;
+    color: var(--light);
+    padding: 1.25em 2em;
+}
+
+.form__input::placeholder {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--light-opacity25);
+}
+
+.form__input:focus {
+    color: var(--light);
+    outline: none;
+}
+
+select {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1em 2em;
+}
+
+.select {
+    border: 2px var(--main) solid;
+}
+
+.select:focus {
+    border: 2px var(--second) solid;
+}
+
+/* ========== NAVIGATION BAR */
+
+.nav-bar {
+    background-color: var(--main);
+    padding: 2em 0;
+}
+
+.nav-bar-container {
+    display: flex;
+    gap: 5em;
+    margin: 0 5em;
+}
+
+.nav-bar__link {
+    color: var(--light);
+    text-decoration: none;
+}
+
+.nav-bar__link:hover,
+.nav-bar__link:focus {
+    color: var(--light2);
+    text-shadow: 1px 1px 3px var(--second);
+}
+
+/* ========== FOOTER */
+
+footer {
+    background-color: var(--main);
+    color: var(--light);
+    text-align: center;
+    padding: 1.25em;
+}
+
+.footer--big-screen {
+    display: none;
+}
+
+/* ========== LOGIN.php */
+
+.main-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.left-login-container {
+    display: none;
+}
+
+.right-login-container {
+    gap: 5em;
+}
+
+.right-login__header {
+    font-size: 3rem;
+    color: var(--light);
+}
+
+.right-login__para {
     color: var(--light);
     font-size: 0.8rem;
 }
 
-.login-link {
+.right-login__link {
     color: var(--light2);
     text-decoration: none;
 }
 
-.right-register {
+.login-form-container--gap {
+    gap: 2em;
+}
+
+.login-form__input {
+    border: 2px var(--light2) solid;
+    border-radius: 50px;
+}
+
+/* ========== REGISTER.php */
+
+.left-register-container {
+    gap: 2.5em;
+    margin: 3em 0;
+}
+
+.left-register__header {
+    font-size: 3rem;
+    color: var(--light);
+}
+
+.register-form__label {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--light);
+    margin-bottom: 0.5em;
+}
+
+.register-form__input {
+    margin-bottom: 3em;
+    border: none;
+    border-bottom: 2px var(--light2) solid;
+}
+
+.right-register-container {
     display: none;
+}
+
+/* ========== SEARCH.php */
+
+.search-container {
+    gap: 5em;
+    margin: 3em 0;
+}
+
+.search-container * {
+    gap: 3em;
+}
+
+.search-form__dropdown {
+    width: 50%;
+    background-color: var(--main);
+    color: var(--light);
+    border: none;
+}
+
+.search-form__textfield {
+    color: var(--dark);
+    border: none;
+    border-bottom: 2px var(--main) solid;
+}
+
+.search-form__textfield::placeholder {
+    color: var(--dark-opacity25);
+}
+
+.search-form__textfield:focus {
+    color: var(--dark);
+}
+
+/* ========== DISPLAY.php */
+
+.left-display {
+    gap: 5em;
+    margin: 3em 0;
+}
+
+.left-display * {
+    gap: 3em;
 }
