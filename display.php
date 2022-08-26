@@ -19,13 +19,13 @@
         <script src="" async defer></script>
     </head>
 
-    <body>
+    <body class="flex-wrapper">
         <header>
             <!-- Will update once the nav bar is working on one page-->
         </header>
 
         <main>
-            <div class="left-display">
+            <div class="mobile-container left-display">
                 <h1 class="left-display__header">Book Title</h1>
                 <ul>
                     <li class="left-display__output"><span class="left-display__output--title">Field #1:</span> Field Value</li>
@@ -33,26 +33,28 @@
                     <li class="left-display__output"><span class="left-display__output--title">Field #3:</span> Field Value</li>
                 </ul>
 
-                <form action="display-process.php" method="post" class="display-form">
-                <select name="display-bookcase" class="display-bookcase">
-                    <option>Bookcase #1</option>
-                    <option>Bookcase #2</option>
-                    <option>Bookcase #3</option>
-                </select>
+                <form action="display-process.php" method="post" class="form-container display-form">
+                    <select name="display-bookcase" class="select">
+                        <option>Bookcase #1</option>
+                        <option>Bookcase #2</option>
+                        <option>Bookcase #3</option>
+                    </select>
 
-                <select name="display-shelf" class="select-shelf">
-                    <option>Shelf #1</option>
-                    <option>Shelf #2</option>
-                    <option>Shelf #3</option>
-                </select>
+                    <select name="display-shelf" class="select">
+                        <option>Shelf #1</option>
+                        <option>Shelf #2</option>
+                        <option>Shelf #3</option>
+                    </select>
 
-                <input type="submit" class="submit" value="Submit">
+                    <input type="submit" class="submit submit--dark" value="Submit">
             </form>
             </div>
 
             <div class="right-display"></div>
         </main>
         
-        <footer></footer>
+        <footer>
+            <p>Copyright © 2022 <span class="footer--big-screen">| Developed by Jacob Antonio, Jake Calub, and Peter de Vera</span></p>
+        </footer>
     </body>
 </html>

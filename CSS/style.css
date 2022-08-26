@@ -260,3 +260,14 @@ footer {
 .search-form__textfield:focus {
     color: var(--dark);
 }
+
+/* ========== DISPLAY.php */
+
+.left-display {
+    gap: 5em;
+    margin: 3em 0;
+}
+
+.left-display * {
+    gap: 3em;
+}
