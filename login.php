@@ -26,12 +26,12 @@
             <div class="left-login">
                 <img src="Photos/Login.jpg" alt="A library photo">
             </div>
-            <div class="right-login">
+            <div class="mobile-container right-login">
                 <h1 class="right-login__header">Login</h1>
-                <form action="login-process.php" method="post" class="login-form-container">
-                    <input type="text" class="login-form__input" name="username" placeholder="Username">
-                    <input type="password" class="login-form__input" name="password" placeholder="Password">
-                    <input type="submit" class="login-form__submit" i chavalue="Sign In">
+                <form action="login-process.php" method="post" class="form-container login-form-container--gap">
+                    <input type="text" class="form__input login-form__input" name="username" placeholder="Username">
+                    <input type="password" class="form__input login-form__input" name="password" placeholder="Password">
+                    <input type="submit" class="submit" i chavalue="Sign In">
                 </form>
                 <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link">Sign up now</a></p>
             </div>
