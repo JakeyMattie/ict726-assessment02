@@ -20,7 +20,13 @@
     </head>
 
     <body>
-        <header></header>
+        <header>
+            <a href="index.php">Home</a>
+            <a href="search.php">Search</a>
+            <a href="bookcase.php">Bookcase</a>
+            <!-- Show only if user isAdmin==Y  -->
+            <a href="library.php">Library</a>
+        </header>
 
         <main>
             <h1>Search</h1>
@@ -36,7 +42,7 @@
             </form>
 
             <div class="search-output-container">
-                <h2 class="search_output__header">Dropdown Choice</h2>
+                <h2 class="search-output__header">Dropdown Choice</h2>
                 <ul>
                     <li class="search-output__li">Output #1</li>
                     <li class="search-output__li">Output #2</li>
@@ -44,20 +50,20 @@
                 </ul>
             </div>
 
-            <form action="add-to-bookcase-process.php" method="post" id="add-to-bookcase">
-                <select name="select-bookcase" id="select-bookcase">
+            <form action="add-to-bookcase-process.php" method="post" class="add-to-bookcase">
+                <select name="select-bookcase" class="select-bookcase">
                     <option>Bookcase #1</option>
                     <option>Bookcase #2</option>
                     <option>Bookcase #3</option>
                 </select>
 
-                <select name="select-shelf" id="select-shelf">
+                <select name="select-shelf" class="select-shelf">
                     <option>Shelf #1</option>
                     <option>Shelf #2</option>
                     <option>Shelf #3</option>
                 </select>
 
-                <input type="submit" id="select-form__submit" value="Submit">
+                <input type="submit" class="submit" value="Submit">
             </form>
         </main>
 
