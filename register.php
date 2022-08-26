@@ -20,7 +20,6 @@
     </head>
     <body class="background-color flex-wrapper">
         <header></header>
-
         <main class="main-container">
             <div class="mobile-container left-register-container">
                 <h1 class="left-register__header">Register</h1>
@@ -50,7 +49,6 @@
                 <img src="Photos/Register.jpg" alt="Register laptop photo">
             </div>
         </main>
-
         <footer></footer>
     </body>
 </html>
