@@ -20,9 +20,37 @@
     </head>
 
     <body>
-        <header></header>
+        <header>
+            <!-- Will update once the nav bar is working on one page-->
+        </header>
 
         <main>
+            <div class="left-display">
+                <h1 class="left-display__header">Book Title</h1>
+                <ul>
+                    <li class="left-display__output"><span class="left-display__output--title">Field #1:</span> Field Value</li>
+                    <li class="left-display__output"><span class="left-display__output--title">Field #2:</span> Field Value</li>
+                    <li class="left-display__output"><span class="left-display__output--title">Field #3:</span> Field Value</li>
+                </ul>
+
+                <form action="display-process.php" method="post" class="display-form">
+                <select name="display-bookcase" class="display-bookcase">
+                    <option>Bookcase #1</option>
+                    <option>Bookcase #2</option>
+                    <option>Bookcase #3</option>
+                </select>
+
+                <select name="display-shelf" class="select-shelf">
+                    <option>Shelf #1</option>
+                    <option>Shelf #2</option>
+                    <option>Shelf #3</option>
+                </select>
+
+                <input type="submit" class="submit" value="Submit">
+            </form>
+            </div>
+
+            <div class="right-display"></div>
         </main>
         
         <footer></footer>
