@@ -22,7 +22,7 @@
         <header></header>
 
         <main class="main-container">
-            <div class="mobile-container left-register">
+            <div class="mobile-container left-register-container">
                 <h1 class="left-register__header">Register</h1>
                 <form method="post" class="form-container">
                     <label for="username" class="register-form__label">Username</label>
@@ -42,11 +42,11 @@
                     <label for="password" class="register-form__label">Password</label>
                     <input type="password" class="form__input register-form__input" name="password" placeholder="Enter text here" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
 
-                    <input type="submit" class="submit" value="Submit" name="submit">
+                    <input type="submit" class="submit submit--light" value="Submit" name="submit">
                 </form>
             </div>
                     
-            <div class="container right-register">
+            <div class="container right-register-container">
                 <img src="Photos/Register.jpg" alt="Register laptop photo">
             </div>
         </main>

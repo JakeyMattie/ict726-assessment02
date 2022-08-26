@@ -23,15 +23,15 @@
         <header></header>
 
         <main class="main-container">
-            <div class="left-login">
+            <div class="left-login-container">
                 <img src="Photos/Login.jpg" alt="A library photo">
             </div>
-            <div class="mobile-container right-login">
+            <div class="mobile-container right-login-container">
                 <h1 class="right-login__header">Login</h1>
                 <form action="login-process.php" method="post" class="form-container login-form-container--gap">
                     <input type="text" class="form__input login-form__input" name="username" placeholder="Username">
                     <input type="password" class="form__input login-form__input" name="password" placeholder="Password">
-                    <input type="submit" class="submit" i chavalue="Sign In">
+                    <input type="submit" class="submit submit--light" i chavalue="Sign In">
                 </form>
                 <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link">Sign up now</a></p>
             </div>
