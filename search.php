@@ -21,27 +21,31 @@
 
     <body>
         <header>
-            <a href="index.php">Home</a>
-            <a href="search.php">Search</a>
-            <a href="bookcase.php">Bookcase</a>
-            <!-- Show only if user isAdmin==Y  -->
-            <a href="library.php">Library</a>
+            <div class="nav-bar">
+                <div class="nav-bar-container">
+                    <a class="nav-bar__link" href="index.php">Home</a>
+                    <a class="nav-bar__link" href="search.php">Search</a>
+                    <a class="nav-bar__link" href="bookcase.php">Bookcase</a>
+                    <!-- Show only if user isAdmin==Y  -->
+                    <a class="nav-bar__link" href="library.php">Library</a>
+                </div>
+            </div>
         </header>
 
-        <main>
+        <main class="mobile-container search-container">
             <h1>Search</h1>
 
-            <form action="search-process.php" method="post" id="search-form-container">
-                <select name="search" id="search-form__dropdown">
+            <form action="search-process.php" method="post" class="form-container search-form-container">
+                <select name="search" class="search-form__dropdown">
                     <option>ISBN</option>
                     <option>Book Title</option>
                     <option>Author</option>
                 </select>
-                <input type="text" id="search-form__textfield" placeholder="Insert text here">
-                <input type="submit" id="search-form__submit" value="Submit">
+                <input type="text" class="form__input search-form__textfield" placeholder="Insert text here">
+                <input type="submit" class="submit submit--dark" value="Submit">
             </form>
 
-            <div class="search-output-container">
+            <div class="mobile-container search-output-container">
                 <h2 class="search-output__header">Dropdown Choice</h2>
                 <ul>
                     <li class="search-output__li">Output #1</li>
@@ -50,20 +54,20 @@
                 </ul>
             </div>
 
-            <form action="add-to-bookcase-process.php" method="post" class="add-to-bookcase">
-                <select name="select-bookcase" class="select-bookcase">
+            <form action="add-to-bookcase-process.php" method="post" class="form-container add-to-bookcase-container">
+                <select name="select-bookcase" class="select">
                     <option>Bookcase #1</option>
                     <option>Bookcase #2</option>
                     <option>Bookcase #3</option>
                 </select>
 
-                <select name="select-shelf" class="select-shelf">
+                <select name="select-shelf" class="select">
                     <option>Shelf #1</option>
                     <option>Shelf #2</option>
                     <option>Shelf #3</option>
                 </select>
 
-                <input type="submit" class="submit" value="Submit">
+                <input type="submit" class="submit submit--dark" value="Add">
             </form>
         </main>
 
