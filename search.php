@@ -19,7 +19,7 @@
         <script src="" async defer></script>
     </head>
 
-    <body>
+    <body class="flex-wrapper">
         <header>
             <div class="nav-bar">
                 <div class="nav-bar-container">
