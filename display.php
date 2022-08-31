@@ -47,7 +47,7 @@
                     </select>
 
                     <input type="submit" class="submit submit--dark" value="Submit">
-            </form>
+                </form>
             </div>
 
             <div class="right-display"></div>
