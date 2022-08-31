@@ -7,7 +7,9 @@
 
 :root {
     --main: #781C68;
+    --main-opacity50: rgba(120, 28, 104, 0.50);
     --second: #319DA0;
+    --second-opacity50: rgba(49, 157, 160, 0.50);
     --light: #FFF5E1;
     --light-opacity25: rgba(255, 245, 225, 0.25);
     --light2: #FFD39A;
@@ -70,13 +72,19 @@ h1 {
 
 /* ----- Container Formatting */
 
+.main-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .mobile-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    /* !! REMOVE VIA JAVASCRIPT !! */
 }
 
 /* ----- Form Formatting */
@@ -159,12 +167,6 @@ footer {
 }
 
 /* ========== LOGIN.php */
-
-.main-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
 
 .left-login-container {
     display: none;
@@ -270,4 +272,130 @@ footer {
 
 .left-display * {
     gap: 3em;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+@media (min-width: 800px) {
+
+    .background-color {
+        background-color: white;
+    }
+
+    .submit {
+        background-color: var(--main);
+        color: var(--light2);
+        font-weight: 700;
+        box-shadow: 0px 3px 5px var(--second-opacity50);
+    }
+
+    .submit:hover {
+        background-color: var(--dark);
+        color: var(--light2);
+    }
+
+    /* ===== LOGIN.php */
+
+    .login-header,
+    .login-footer {
+        display: none;
+    }
+
+    .left-login-container {
+        height: 100%;
+        width: 100%;
+        display: block;
+        background-image: url(../Photos/Login.jpg);
+        background-color: var(--main-opacity50);
+        background-size: cover;
+        background-position-y: 25%;
+        background-blend-mode: overlay;
+    }
+
+    .right-login__header {
+        align-self: flex-start;
+        color: var(--main);
+        font-size: 5rem;
+        font-weight: 300;
+        margin-left: 10%;
+    }
+
+    .login-form-container--gap {
+        gap: 4em;
+    }
+
+    .login-form__input {
+        color: var(--dark);
+        border: 2px var(--dark) solid;
+        box-shadow: 0px 3px 5px var(--second-opacity50);
+    }
+
+    .login-form__input::placeholder {
+        color: var(--dark-opacity25);
+    }
+
+    .login-form__input:focus {
+        color: var(--dark);
+    }
+
+    .right-login__para {
+        color: var(--dark);
+    }
+
+    .right-login__link {
+        color: var(--main);
+        font-weight: 700;
+    }
+
+    .right-login__link:hover {
+        color: var(--second);
+    }
+
+    /* ===== REGISTER.php */
+
+    .register-login,
+    .register-footer {
+        display: none;
+    }
+
+    .right-register-container {
+        height: 100%;
+        width: 100%;
+        display: block;
+        background-image: url(../Photos/Register.jpg);
+        background-color: var(--main-opacity50);
+        background-size: cover;
+        background-position-y: 20%;
+        background-blend-mode: overlay;
+    }
+
+    .left-register__header {
+        align-self: flex-start;
+        color: var(--main);
+        font-size: 5rem;
+        font-weight: 300;
+        margin-left: 10%;
+    }
+
+    .register-form__label {
+        color: var(--dark);
+    }
+
+    .register-form__input {
+        color: var(--dark);
+        margin-bottom: 2em;
+        border-bottom: 2px var(--dark) solid;
+    }
+
+    .register-form__input::placeholder {
+        color: var(--dark-opacity25);
+    }
+
+    .register-form__input:focus {
+        color: var(--dark);
+    }
+
+    .register-form__submit {
+        width: 50%;
+    }
 }

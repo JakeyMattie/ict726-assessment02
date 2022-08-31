@@ -20,12 +20,10 @@
     </head>
 
     <body class="background-color flex-wrapper">
-        <header></header>
+        <header class="login-header"></header>
 
         <main class="main-container">
-            <div class="left-login-container">
-                <img src="Photos/Login.jpg" alt="A library photo">
-            </div>
+            <div class="left-login-container"></div>
             <div class="mobile-container right-login-container">
                 <h1 class="right-login__header">Login</h1>
                 <form action="login-process.php" method="post" class="form-container login-form-container--gap">
@@ -37,6 +35,6 @@
             </div>
         </main>
 
-        <footer></footer>
+        <footer class="login-footer"></footer>
     </body>
 </html>

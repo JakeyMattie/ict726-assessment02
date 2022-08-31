@@ -19,7 +19,7 @@
         <script src="" async defer></script>
     </head>
     <body class="background-color flex-wrapper">
-        <header></header>
+        <header class="register-header"></header>
 
         <main class="main-container">
             <div class="mobile-container left-register-container">
@@ -42,15 +42,13 @@
                     <label for="password" class="register-form__label">Password</label>
                     <input type="password" class="form__input register-form__input" name="password" placeholder="Enter text here" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
 
-                    <input type="submit" class="submit submit--light" value="Submit" name="submit">
+                    <input type="submit" class="submit submit--light register-form__submit" value="Submit" name="submit">
                 </form>
             </div>
                     
-            <div class="container right-register-container">
-                <img src="Photos/Register.jpg" alt="Register laptop photo">
-            </div>
+            <div class="right-register-container"></div>
         </main>
 
-        <footer></footer>
+        <footer class="register-footer"></footer>
     </body>
 </html>
