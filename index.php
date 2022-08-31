@@ -32,7 +32,7 @@
         </header>
 
         <main class="index-container">
-            <div class="index-images">
+            <div class="index-images"></div>
                 <img src="Photos/Index01.jpg" class="index-photo01">
                 <img src="Photos/Index02.jpg" class="index-photo02">
                 <img src="Photos/Index03.jpg" class="index-photo03">
