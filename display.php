@@ -24,7 +24,7 @@
             <!-- Will update once the nav bar is working on one page-->
         </header>
 
-        <main>
+        <main class="main-container">
             <div class="mobile-container left-display">
                 <h1 class="left-display__header">Book Title</h1>
                 <ul>
@@ -46,11 +46,18 @@
                         <option>Shelf #3</option>
                     </select>
 
-                    <input type="submit" class="submit submit--dark" value="Submit">
+                    <input type="submit" class="submit submit--dark" value="Add">
                 </form>
             </div>
 
-            <div class="right-display"></div>
+            <div class="right-display">
+                <div class="display-blue01"></div>
+                <img src="Photos/Book.jpg" class="display-photo">
+                <div class="display-border--purple"></div>
+                <div class="display-border--blue"></div>
+                <div class="display-purple"></div>
+                <div class="display-blue02"></div>
+            </div>
         </main>
         
         <footer>
