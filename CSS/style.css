@@ -90,6 +90,16 @@ h1 {
     cursor: pointer;
 }
 
+.double-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.double-button-container {
+    width: 100%;
+}
+
 /* ----- Container Formatting */
 
 .main-container {
@@ -429,8 +439,8 @@ footer {
     }
 
     .double-button-container {
-        display: flex;
         width: 100%;
+        flex-direction: row;
         justify-content: space-between;
     }
 
