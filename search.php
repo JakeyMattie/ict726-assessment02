@@ -26,8 +26,7 @@
                     <a class="nav-bar__link" href="index.php">Home</a>
                     <a class="nav-bar__link" href="search.php">Search</a>
                     <a class="nav-bar__link" href="bookcase.php">Bookcase</a>
-                    <!-- Show only if user isAdmin==Y  -->
-                    <a class="nav-bar__link" href="library.php">Library</a>
+                    <a class="nav-bar__link"    href="library.php">Logout</a>
                 </div>
             </div>
         </header>
