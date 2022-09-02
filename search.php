@@ -26,7 +26,7 @@
                     <a class="nav-bar__link" href="index.php">Home</a>
                     <a class="nav-bar__link" href="search.php">Search</a>
                     <a class="nav-bar__link" href="bookcase.php">Bookcase</a>
-                    <a class="nav-bar__link" href="library.php">Logout</a>
+                    <a class="nav-bar__link"    href="library.php">Logout</a>
                 </div>
             </div>
         </header>
