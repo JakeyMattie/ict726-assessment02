@@ -1,3 +1,7 @@
+<?php 
+    include("input-validation.php");  
+    include("login-process.php");    
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -17,6 +21,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
         <script src="" async defer></script>
+
+        <style>
+            .prompt{
+                color: white;
+            }
+        </style>
     </head>
 
     <body class="background-color flex-wrapper">
@@ -25,11 +35,17 @@
         <main class="main-container">
             <div class="left-login-container background-image"></div>
             <div class="mobile-container right-login-container">
+                <span class="prompt"><?php echo isset($_GET['success']) ? "Registration successful!" : "" ?></span>
                 <h1 class="right-login__header header--big text--unbold">Login</h1>
-                <form action="login-process.php" method="post" class="form-container login-form-container--gap">
-                    <input type="text" class="form__input login-form__input" name="username" placeholder="Username">
+                <form method="POST" class="form-container login-form-container--gap">
+                    <!-- USERNAME -->
+                    <span class="prompt"><?php echo isset($username_error) ? $username_error : "" ?></span>
+                    <input type="text" class="form__input login-form__input" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">
+                    
+                    <!-- PASSWORD -->
+                    <span class="prompt"><?php echo isset($password_error) ? $password_error : "" ?></span>
                     <input type="password" class="form__input login-form__input" name="password" placeholder="Password">
-                    <input type="submit" class="submit submit--light submit--small" i chavalue="Sign In">
+                    <input type="submit" class="submit submit--light submit--small" value="Sign In" name="submit">
                 </form>
                 <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link text--bold">Sign up now</a></p>
             </div>
