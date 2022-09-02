@@ -21,16 +21,30 @@
 
     <body class="flex-wrapper">
         <header>
-            <!-- Will update once the nav bar is working on one page-->
+            <?php include("nav.php"); ?>
         </header>
-
         <main>
+            <?php 
+            if(isset($_GET["id"])){
+                include("db_connect.php");
+                $isbn = $_GET["id"];
+                $query = "SELECT isbn, title, first_name, last_name, genre FROM book JOIN author ON book.author_id = author.author_id WHERE isbn = $isbn";
+                $result = mysqli_query($db_connection, $query);
+                while($row = mysqli_fetch_row($result)){
+                    $ISBN = $row[0];
+                    $title = $row[1];
+                    $author = $row[2] . " " . $row[3];
+                    $genre = $row[4];
+                }
+            }
+            
+            ?>
             <div class="mobile-container left-display">
-                <h1 class="left-display__header">Book Title</h1>
+                <h1 class="left-display__header"><?php echo $title ?></h1>
                 <ul>
-                    <li class="left-display__output"><span class="left-display__output--title">Field #1:</span> Field Value</li>
-                    <li class="left-display__output"><span class="left-display__output--title">Field #2:</span> Field Value</li>
-                    <li class="left-display__output"><span class="left-display__output--title">Field #3:</span> Field Value</li>
+                    <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
+                    <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
+                    <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
                 </ul>
 
                 <form action="display-process.php" method="post" class="form-container display-form">
