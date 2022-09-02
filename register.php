@@ -61,7 +61,6 @@
                     <span class="prompt"><?php echo isset($email_error) ? $email_error : "" ?></span>                    
                     <input type="text" class="form__input register-form__input" name="email" placeholder="Enter text here" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" required>
                     
-                    
                     <input type="submit" class="submit submit--light" value="Submit" name="submit">
                 </form>
             </div>

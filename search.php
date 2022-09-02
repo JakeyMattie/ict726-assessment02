@@ -3,10 +3,6 @@
     include("add-to-bookcase-process.php"); 
 ?>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -25,7 +21,15 @@
 
     <body class="flex-wrapper">
         <header>
-            <?php include("nav.php");?>
+            <div class="nav-bar">
+                <div class="nav-bar-container">
+                    <a class="nav-bar__link" href="index.php">Home</a>
+                    <a class="nav-bar__link" href="search.php">Search</a>
+                    <a class="nav-bar__link" href="bookcase.php">Bookcase</a>
+                    <!-- Show only if user isAdmin==Y  -->
+                    <a class="nav-bar__link" href="library.php">Library</a>
+                </div>
+            </div>
         </header>
 
         <main class="mobile-container search-container">
@@ -67,14 +71,6 @@
                     <?php } ?>
                 </table>
             <?php } ?>
-            <!-- <div class="mobile-container search-output-container">
-                <h2 class="search-output__header">Dropdown Choice</h2>
-                <ul>
-                    <li class="search-output__li">Output #1</li>
-                    <li class="search-output__li">Output #2</li>
-                    <li class="search-output__li">Output #3</li>
-                </ul>
-            </div> -->
 
             <form method="post" class="form-container add-to-bookcase-container">
                 <select name="select-bookcase" class="select">
@@ -88,7 +84,6 @@
                     <option>Shelf #2</option>
                     <option>Shelf #3</option>
                 </select>
-                
                 <input type="submit" class="submit submit--dark" value="Add" name="add">
             </form>
         </main>
