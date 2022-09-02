@@ -412,6 +412,16 @@ footer {
         font-style: italic;
     }
 
+    /* ----- Form */
+
+    .form__input::placeholder {
+        color: var(--dark-opacity25);
+    }
+
+    .form__input:focus {
+        color: var(--dark);
+    }
+
     /* ----- Buttons */
 
     .submit {
@@ -492,14 +502,6 @@ footer {
         box-shadow: 0px 3px 5px var(--second-opacity50);
     }
 
-    .login-form__input::placeholder {
-        color: var(--dark-opacity25);
-    }
-
-    .login-form__input:focus {
-        color: var(--dark);
-    }
-
     .right-login__para {
         color: var(--dark);
     }
@@ -544,14 +546,6 @@ footer {
         color: var(--dark);
         margin-bottom: 2em;
         border-bottom: 2px var(--dark) solid;
-    }
-
-    .register-form__input::placeholder {
-        color: var(--dark-opacity25);
-    }
-
-    .register-form__input:focus {
-        color: var(--dark);
     }
 
     /* ===== INDEX.php */
