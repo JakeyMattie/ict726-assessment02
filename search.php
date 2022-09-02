@@ -1,3 +1,7 @@
+<?php 
+    include("search-process.php"); 
+    include("add-to-bookcase-process.php"); 
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -21,40 +25,58 @@
 
     <body class="flex-wrapper">
         <header>
-            <div class="nav-bar">
-                <div class="nav-bar-container">
-                    <a class="nav-bar__link" href="index.php">Home</a>
-                    <a class="nav-bar__link" href="search.php">Search</a>
-                    <a class="nav-bar__link" href="bookcase.php">Bookcase</a>
-                    <!-- Show only if user isAdmin==Y  -->
-                    <a class="nav-bar__link" href="library.php">Library</a>
-                </div>
-            </div>
+            <?php include("nav.php");?>
         </header>
 
         <main class="mobile-container search-container">
             <h1>Search</h1>
-
-            <form action="search-process.php" method="post" class="form-container search-form-container">
+            <?php 
+                // session_start();
+                // if(isset($_SESSION['user_id'])){
+                //     echo $_SESSION['user_id']; 
+                // }else{
+                //     header("Location: login.php");
+                // }
+            ?>
+            <form method="post" class="form-container search-form-container">
                 <select name="search" class="search-form__dropdown">
-                    <option>ISBN</option>
-                    <option>Book Title</option>
-                    <option>Author</option>
+                    <option value="isbn">ISBN</option>
+                    <option value="title">Book Title</option>
+                    <option value="author">Author</option>
                 </select>
-                <input type="text" class="form__input search-form__textfield" placeholder="Insert text here">
-                <input type="submit" class="submit submit--dark" value="Submit">
+                <input type="text" class="form__input search-form__textfield" placeholder="Insert text here" name="keyword">
+                <input type="submit" class="submit submit--dark" value="Submit" name="submit">
             </form>
-
-            <div class="mobile-container search-output-container">
+            <?php if(isset($result)){ ?>
+                <table>
+                    <tr>
+                        <th> </th>
+                        <th>ISBN</th>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                    </tr>
+                    <?php while($row = mysqli_fetch_array($result)){ ?>
+                        <tr>
+                            <td><input type="radio" name="book" value="<?php $row[0] ?>"></td>
+                            <td><a href="display.php?id=<?php echo $row[0];?>"><?php echo $row[0]; ?></a></td>
+                            <td><?php echo $row[1]; ?></td>
+                            <td><?php echo $row[2] . " " . $row[3]; ?></td>
+                            <td><?php echo $row[4] ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            <?php } ?>
+            <!-- <div class="mobile-container search-output-container">
                 <h2 class="search-output__header">Dropdown Choice</h2>
                 <ul>
                     <li class="search-output__li">Output #1</li>
                     <li class="search-output__li">Output #2</li>
                     <li class="search-output__li">Output #3</li>
                 </ul>
-            </div>
+            </div> -->
 
-            <form action="add-to-bookcase-process.php" method="post" class="form-container add-to-bookcase-container">
+            <form method="post" class="form-container add-to-bookcase-container">
                 <select name="select-bookcase" class="select">
                     <option>Bookcase #1</option>
                     <option>Bookcase #2</option>
@@ -66,8 +88,8 @@
                     <option>Shelf #2</option>
                     <option>Shelf #3</option>
                 </select>
-
-                <input type="submit" class="submit submit--dark" value="Add">
+                
+                <input type="submit" class="submit submit--dark" value="Add" name="add">
             </form>
         </main>
 
