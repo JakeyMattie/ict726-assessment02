@@ -353,13 +353,15 @@ footer {
     display: none;
 }
 
-/* ========== BOOKCASE.php */
+/* ========== BOOKCASE/SHELF/BOOK.php */
 
-.left-bookcase {
+.left-bookcase,
+.right-shelf {
     display: none;
 }
 
-.right-bookcase {
+.right-bookcase,
+.left-shelf {
     gap: 4em;
 }
 
@@ -720,7 +722,7 @@ footer {
         z-index: -3;
     }
 
-    /* ===== BOOKCASE.php */
+    /* ===== BOOKCASE/SHELF/BOOK.php */
 
     .left-bookcase {
         height: 100%;
@@ -732,7 +734,18 @@ footer {
         background-blend-mode: overlay;
     }
 
-    .right-bookcase {
+    .right-shelf {
+        height: 100%;
+        width: 100%;
+        display: block;
+        background-image: url(../Photos/Shelf.jpg);
+        background-color: var(--main-opacity50);
+        background-size: cover;
+        background-blend-mode: overlay;
+    }
+
+    .right-bookcase,
+    .left-shelf {
         gap: 7.5em;
     }
 

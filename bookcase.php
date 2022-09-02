@@ -24,7 +24,7 @@
             <div class="left-bookcase"></div>
 
             <div class="mobile-container right-bookcase">
-                <h1 class="right-bookcase__header header--big text--unbold text--italize">Bookcases</h1>
+                <h1 class="header--big text--unbold text--italize">Bookcases</h1>
 
                 <form action="shelf.php" method="post" class="form-container bookcase-form-container">
                     <select name="bookcase" class="select">
