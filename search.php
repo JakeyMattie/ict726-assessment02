@@ -59,10 +59,10 @@
                     <?php while($row = mysqli_fetch_array($result)){ ?>
                         <tr>
                             <td><input type="radio" name="book" value="<?php $row[0] ?>"></td>
-                            <td><a href="display.php?id=<?php echo $row[0];?>"><?php echo $row[0]; ?></a></td>
-                            <td><?php echo $row[1]; ?></td>
-                            <td><?php echo $row[2] . " " . $row[3]; ?></td>
-                            <td><?php echo $row[4] ?></td>
+                            <td><a href="display.php?id=<?php echo $row['isbn'];?>"><?php echo $row['isbn']; ?></a></td>
+                            <td><?php echo $row['title']; ?></td>
+                            <td><?php echo $row['first_name'] . " " . $row['last_name']; ?></td>
+                            <td><?php echo $row['genre'] ?></td>
                         </tr>
                     <?php } ?>
                 </table>
