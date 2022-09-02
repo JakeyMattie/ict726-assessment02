@@ -392,6 +392,15 @@ footer {
 
 @media (min-width: 800px) {
 
+    .background-image {
+        height: 100%;
+        width: 100%;
+        display: block;
+        background-color: var(--main-opacity50);
+        background-size: cover;
+        background-blend-mode: overlay;
+    }
+
     .background-color {
         background-color: white;
     }
@@ -478,14 +487,8 @@ footer {
     }
 
     .left-login-container {
-        height: 100%;
-        width: 100%;
-        display: block;
         background-image: url(../Photos/Login.jpg);
-        background-color: var(--main-opacity50);
-        background-size: cover;
         background-position-y: 25%;
-        background-blend-mode: overlay;
     }
 
     .right-login__header {
@@ -524,14 +527,8 @@ footer {
     }
 
     .right-register-container {
-        height: 100%;
-        width: 100%;
-        display: block;
         background-image: url(../Photos/Register.jpg);
-        background-color: var(--main-opacity50);
-        background-size: cover;
         background-position-y: 20%;
-        background-blend-mode: overlay;
     }
 
     .left-register__header {
@@ -725,23 +722,11 @@ footer {
     /* ===== BOOKCASE/SHELF/BOOK.php */
 
     .left-bookcase {
-        height: 100%;
-        width: 100%;
-        display: block;
         background-image: url(../Photos/Bookcase.jpg);
-        background-color: var(--main-opacity50);
-        background-size: cover;
-        background-blend-mode: overlay;
     }
 
     .right-shelf {
-        height: 100%;
-        width: 100%;
-        display: block;
         background-image: url(../Photos/Shelf.jpg);
-        background-color: var(--main-opacity50);
-        background-size: cover;
-        background-blend-mode: overlay;
     }
 
     .right-bookcase,

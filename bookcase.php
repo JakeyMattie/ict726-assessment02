@@ -21,7 +21,7 @@
         </header>
 
         <main class="main-container">
-            <div class="left-bookcase"></div>
+            <div class="left-bookcase background-image"></div>
 
             <div class="mobile-container right-bookcase">
                 <h1 class="header--big text--unbold text--italize">Bookcases</h1>

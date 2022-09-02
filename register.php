@@ -48,7 +48,7 @@
                 </form>
             </div>
                     
-            <div class="right-register-container"></div>
+            <div class="right-register-container background-image"></div>
         </main>
 
         <footer class="register-footer"></footer>

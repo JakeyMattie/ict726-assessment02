@@ -23,7 +23,7 @@
         <header class="login-header"></header>
 
         <main class="main-container">
-            <div class="left-login-container"></div>
+            <div class="left-login-container background-image"></div>
             <div class="mobile-container right-login-container">
                 <h1 class="right-login__header header--big text--unbold">Login</h1>
                 <form action="login-process.php" method="post" class="form-container login-form-container--gap">

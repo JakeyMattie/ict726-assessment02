@@ -43,7 +43,7 @@
                 </form>
             </div>
 
-            <div class="right-shelf"></div>
+            <div class="right-shelf background-image"></div>
         </main>
         
         <footer>
