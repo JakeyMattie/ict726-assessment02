@@ -25,13 +25,13 @@
         <main class="main-container">
             <div class="left-login-container"></div>
             <div class="mobile-container right-login-container">
-                <h1 class="right-login__header">Login</h1>
+                <h1 class="right-login__header header--big text--unbold">Login</h1>
                 <form action="login-process.php" method="post" class="form-container login-form-container--gap">
                     <input type="text" class="form__input login-form__input" name="username" placeholder="Username">
                     <input type="password" class="form__input login-form__input" name="password" placeholder="Password">
-                    <input type="submit" class="submit submit--light" i chavalue="Sign In">
+                    <input type="submit" class="submit submit--light submit--small" i chavalue="Sign In">
                 </form>
-                <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link">Sign up now</a></p>
+                <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link text--bold">Sign up now</a></p>
             </div>
         </main>
 

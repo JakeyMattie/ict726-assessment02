@@ -26,7 +26,7 @@
 
         <main class="main-container">
             <div class="mobile-container left-display">
-                <h1 class="left-display__header">Book Title</h1>
+                <h1 class="left-display__header header--big text--unbold text--italize">Book Title</h1>
                 <ul>
                     <li class="left-display__output"><span class="left-display__output--title">Field #1:</span> Field Value</li>
                     <li class="left-display__output"><span class="left-display__output--title">Field #2:</span> Field Value</li>
@@ -46,7 +46,7 @@
                         <option>Shelf #3</option>
                     </select>
 
-                    <input type="submit" class="submit submit--dark" value="Add">
+                    <input type="submit" class="submit submit--dark submit--small" value="Add">
                 </form>
             </div>
 

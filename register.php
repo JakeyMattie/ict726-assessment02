@@ -19,26 +19,32 @@
 
         <main class="main-container">
             <div class="mobile-container left-register-container">
-                <h1 class="left-register__header">Register</h1>
+                <h1 class="left-register__header header--big text--unbold">Register</h1>
                 <form method="post" class="form-container">
-                    <label for="username" class="register-form__label">Username</label>
+
+                    <!-- USERNAME -->
+                    <label for="username" class="form__label register-form__label">Username</label>
                     <input type="text" class="form__input register-form__input" name="username" placeholder="Enter text here" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">
                     <?php echo isset($user_taken) ? "Username ". $username. " is taken." : "" ?>
 
-                    <label for="firstname" class="register-form__label">First Name</label>
+                    <!-- FIRST NAME -->
+                    <label for="firstname" class="form__label register-form__label">First Name</label>
                     <input type="text" class="form__input register-form__input" name="firstname" placeholder="Enter text here" value="<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>">
 
-                    <label for="lastname" class="register-form__label">Last Name</label>
+                    <!-- LAST NAME -->
+                    <label for="lastname" class="form__label register-form__label">Last Name</label>
                     <input type="text" class="form__input register-form__input" name="lastname" placeholder="Enter text here" value="<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ?>">
 
-                    <label for="email" class="register-form__label">Email</label>
+                    <!-- EMAIL -->
+                    <label for="email" class="form__label register-form__label">Email</label>
                     <input type="email" class="form__input register-form__input" name="email" placeholder="Enter text here" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
-
                     <?php echo isset($email_taken)  ? "Email ". $email. " is taken." : "" ?>
-                    <label for="password" class="register-form__label">Password</label>
+
+                    <!-- PASSWORD -->
+                    <label for="password" class="form__label register-form__label">Password</label>
                     <input type="password" class="form__input register-form__input" name="password" placeholder="Enter text here" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
 
-                    <input type="submit" class="submit submit--light register-form__submit" value="Submit" name="submit">
+                    <input type="submit" class="submit submit--light submit--small register-form__submit" value="Submit" name="submit">
                 </form>
             </div>
                     
