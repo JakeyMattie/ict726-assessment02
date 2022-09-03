@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if(isset($_SESSION['user'])){
+        header("Location: index.php");
+    }
+
     if (isset($_POST['submit'])){
         //get database connection
         include("db_connect.php");
@@ -48,12 +53,12 @@
             //store query result in variables
             $result = mysqli_query($db_connection, $checkUser);
             if(mysqli_num_rows($result) == 1){
-                $user = mysqli_fetch_row($result);
+                $user = mysqli_fetch_array($result);
                 if($user[2] == $hash){
                     if($user[6] == 0){
                         session_start();
-                        $_SESSION['user_id'] = $user[1];
-                        header("Location: search.php");
+                        $_SESSION['user'] = $user;
+                        header("Location: index.php");
                     }else{
                         echo "<br>Admin!";
                     }                

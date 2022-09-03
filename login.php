@@ -24,7 +24,7 @@
 
         <style>
             .prompt{
-                color: white;
+                color: #180A29;
             }
         </style>
     </head>

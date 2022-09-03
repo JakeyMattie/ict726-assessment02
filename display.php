@@ -1,3 +1,15 @@
+<?php 
+    session_start();
+    if(isset($_SESSION['user'])){
+        if(isset($_GET['id'])){
+            echo $_SESSION['user'][0]; 
+        }else{
+            header("Location: search.php");
+        }
+    }else{
+        header("Location: login.php");
+    }
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -28,13 +40,14 @@
             if(isset($_GET["id"])){
                 include("db_connect.php");
                 $isbn = $_GET["id"];
-                $query = "SELECT isbn, title, first_name, last_name, genre FROM book JOIN author ON book.author_id = author.author_id WHERE isbn = $isbn";
+                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
                 $result = mysqli_query($db_connection, $query);
-                while($row = mysqli_fetch_row($result)){
-                    $ISBN = $row[0];
-                    $title = $row[1];
-                    $author = $row[2] . " " . $row[3];
-                    $genre = $row[4];
+                while($row = mysqli_fetch_array($result)){
+                    $ISBN = $row['isbn'];
+                    $title = $row['title'];
+                    $author = $row['first_name'] . " " . $row['last_name'];
+                    $genre = $row['name'];
+                    $list_price = $row['list_price'];
                 }
             }
             
@@ -45,6 +58,9 @@
                     <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
                     <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
                     <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
+                    <li class="left-display__output"><span class="left-display__output--title">List Price:</span> <?php echo $list_price;?></li>
+
+                    <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $list_price;?></li>
                 </ul>
 
                 <form action="display-process.php" method="post" class="form-container display-form">

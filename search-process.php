@@ -7,13 +7,13 @@
 
         switch($choice){
             case "isbn":
-                $query = "SELECT isbn, title, first_name, last_name, genre FROM book JOIN author ON book.author_id = author.author_id WHERE  isbn LIKE '%$keyword%'";
+                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE  LOWER(isbn) LIKE LOWER('%$keyword%')";
                 break;
             case "title":
-                $query = "SELECT isbn, title, first_name, last_name, genre FROM book JOIN author ON book.author_id = author.author_id WHERE  title LIKE '%$keyword%'";
+                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE  LOWER(title) LIKE LOWER('%$keyword%')";
                 break;
             case "author":
-                $query = "SELECT isbn, title, first_name, last_name, genre FROM book JOIN author ON book.author_id = author.author_id WHERE  first_name LIKE '%$keyword%' OR last_name LIKE '%$keyword%'";
+                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE  LOWER(first_name) LIKE '%$keyword%' OR LOWER(last_name) LIKE LOWER('%$keyword%')";
                 break;
             default:
                 break;
