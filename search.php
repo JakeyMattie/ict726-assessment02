@@ -21,25 +21,18 @@
 
     <body class="flex-wrapper">
         <header>
-            <div class="nav-bar">
-                <div class="nav-bar-container">
-                    <a class="nav-bar__link" href="index.php">Home</a>
-                    <a class="nav-bar__link" href="search.php">Search</a>
-                    <a class="nav-bar__link" href="bookcase.php">Bookcase</a>
-                    <a class="nav-bar__link"    href="library.php">Logout</a>
-                </div>
-            </div>
+            <?php include("nav.php"); ?>
         </header>
 
         <main class="mobile-container search-container">
             <h1>Search</h1>
             <?php 
-                // session_start();
-                // if(isset($_SESSION['user_id'])){
-                //     echo $_SESSION['user_id']; 
-                // }else{
-                //     header("Location: login.php");
-                // }
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo $_SESSION['user'][0]; 
+                }else{
+                    header("Location: login.php");
+                }
             ?>
             <form method="post" class="form-container search-form-container">
                 <select name="search" class="search-form__dropdown">
@@ -53,19 +46,19 @@
             <?php if(isset($result)){ ?>
                 <table>
                     <tr>
-                        <th> </th>
                         <th>ISBN</th>
                         <th>Book Title</th>
                         <th>Author</th>
                         <th>Genre</th>
+                        <th>List Price</th>
                     </tr>
                     <?php while($row = mysqli_fetch_array($result)){ ?>
                         <tr>
-                            <td><input type="radio" name="book" value="<?php $row[0] ?>"></td>
-                            <td><a href="display.php?id=<?php echo $row['isbn'];?>"><?php echo $row['isbn']; ?></a></td>
+                            <td><a href="display.php?id=<?php echo $row['isbn']; ?>"><?php echo $row['isbn']; ?></a></td>
                             <td><?php echo $row['title']; ?></td>
                             <td><?php echo $row['first_name'] . " " . $row['last_name']; ?></td>
-                            <td><?php echo $row['genre'] ?></td>
+                            <td><?php echo $row['name'] ?></td>
+                            <td><?php echo $row['list_price'] ?></td>
                         </tr>
                     <?php } ?>
                 </table>
