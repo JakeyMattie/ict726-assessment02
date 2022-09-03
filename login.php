@@ -30,15 +30,13 @@
     </head>
 
     <body class="background-color flex-wrapper">
-        <header></header>
+        <header class="login-header"></header>
 
         <main class="main-container">
-            <div class="left-login-container">
-                <img src="Photos/Login.jpg" alt="A library photo">
-            </div>
+            <div class="left-login-container background-image"></div>
             <div class="mobile-container right-login-container">
                 <span class="prompt"><?php echo isset($_GET['success']) ? "Registration successful!" : "" ?></span>
-                <h1 class="right-login__header">Login</h1>
+                <h1 class="right-login__header header--big text--unbold">Login</h1>
                 <form method="POST" class="form-container login-form-container--gap">
                     <!-- USERNAME -->
                     <span class="prompt"><?php echo isset($username_error) ? $username_error : "" ?></span>
@@ -47,12 +45,12 @@
                     <!-- PASSWORD -->
                     <span class="prompt"><?php echo isset($password_error) ? $password_error : "" ?></span>
                     <input type="password" class="form__input login-form__input" name="password" placeholder="Password">
-                    <input type="submit" class="submit submit--light" value="Sign In" name="submit">
+                    <input type="submit" class="submit submit--light submit--small" value="Sign In" name="submit">
                 </form>
-                <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link">Sign up now</a></p>
+                <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link text--bold">Sign up now</a></p>
             </div>
         </main>
 
-        <footer></footer>
+        <footer class="login-footer"></footer>
     </body>
 </html>

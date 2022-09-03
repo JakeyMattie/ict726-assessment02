@@ -8,10 +8,6 @@
 ?>
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -19,7 +15,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="CSS/style.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,10 +23,11 @@
         
         <script src="" async defer></script>
     </head>
-    <body>
+    <body class="flex-wrapper">
         <header>
             <?php include("nav.php");?>
         </header>
+        
         <main class="index-container">
              <div class="index-images">
                  <img src="Photos/Index01.jpg" class="index-photo01">
@@ -48,7 +45,7 @@
         </main>
 
         <footer>
-
+            <p>Copyright © 2022 <span class="footer--big-screen">| Developed by Jacob Antonio, Jake Calub, and Peter de Vera</span></p>
         </footer>
     </body>
 </html>
