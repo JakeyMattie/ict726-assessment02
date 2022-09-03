@@ -35,7 +35,7 @@
         <header>
             <?php include("nav.php"); ?>
         </header>
-        <main>
+        <main class="main-container">
             <?php 
             if(isset($_GET["id"])){
                 include("db_connect.php");
@@ -49,11 +49,10 @@
                     $genre = $row['name'];
                     $list_price = $row['list_price'];
                 }
-            }
-            
+            }           
             ?>
             <div class="mobile-container left-display">
-                <h1 class="left-display__header"><?php echo $title ?></h1>
+                <h1 class="left-display__header header--big text--unbold text--italize"><?php echo $title ?></h1>
                 <ul>
                     <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
                     <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
@@ -76,11 +75,18 @@
                         <option>Shelf #3</option>
                     </select>
 
-                    <input type="submit" class="submit submit--dark" value="Submit">
-            </form>
+                    <input type="submit" class="submit submit--dark submit--small" value="Add">
+                </form>
             </div>
 
-            <div class="right-display"></div>
+            <div class="right-display">
+                <div class="display-blue01"></div>
+                <img src="Photos/Book.jpg" class="display-photo">
+                <div class="display-border--purple"></div>
+                <div class="display-border--blue"></div>
+                <div class="display-purple"></div>
+                <div class="display-blue02"></div>
+            </div>
         </main>
         
         <footer>
