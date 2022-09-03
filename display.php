@@ -37,7 +37,7 @@
         </header>
         <main class="main-container">
             <?php 
-            if(isset($_GET["id"])){
+            if(isset($_GET['id'])){
                 include("db_connect.php");
                 $isbn = $_GET["id"];
                 $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
@@ -49,6 +49,22 @@
                     $genre = $row['name'];
                     $list_price = $row['list_price'];
                 }
+
+                $user_id = $_SESSION['user'][0];
+                $check_heap = "SELECT * FROM heap WHERE isbn='$isbn' AND user_id='$user_id';";
+                $check_heap_result = mysqli_query($db_connection, $check_heap);
+
+
+                $check_shelf = "SELECT * FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN bookcase on bookcase.bookcase_id = shelf.bookcase_id WHERE isbn='$isbn' AND user_id='$user_id';";
+                $check_shelf_result = mysqli_query($db_connection, $check_shelf);
+                if(mysqli_num_rows($check_heap_result) == 1){
+                    $location = "Heap";
+                }
+                if(mysqli_num_rows($check_shelf_result) == 1){
+                    while($row = mysqli_fetch_array($check_shelf_result)){
+                        $location = "Bookcase: ". $row['bookcase_name'] . "<br> Shelf: " . $row['shelf_name'];
+                    }
+                }
             }           
             ?>
             <div class="mobile-container left-display">
@@ -58,8 +74,7 @@
                     <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
                     <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
                     <li class="left-display__output"><span class="left-display__output--title">List Price:</span> <?php echo $list_price;?></li>
-
-                    <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $list_price;?></li>
+                    <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $location;?></li>
                 </ul>
 
                 <form action="display-process.php" method="post" class="form-container display-form">

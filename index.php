@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if(isset($_SESSION['user'])){
-        echo $_SESSION['user'][0]; 
+        // echo $_SESSION['user'][0]; 
     }else{
         header("Location: login.php");
     }
@@ -39,7 +39,7 @@
                  <div class="index-purple"></div>
              </div>
              <div class="index-content-container">
-                 <h1 class="index-content__header header--big">Test Header</h1>
+                 <h1 class="index-content__header header--big">Welcome, <?php echo $_SESSION['user']['first_name']; ?></h1>
                  <p class="index-content__desc">Lorem ipsum something something subheading dolor sit amet.</p>
              </div>
         </main>

@@ -6,8 +6,18 @@
         header("Location: login.php");
     }
 
-    if (isset($_POST['proceed'])){
+    if(isset($_POST['proceed'])){
+        //establish db connection
+        include("db_connect.php");
         $bookcase = $_POST['bookcase'];
+        $query = "SELECT bookcase_name FROM bookcase WHERE bookcase_id = '$bookcase';";
+        $result = mysqli_query($db_connection, $query);
+        while($row = mysqli_fetch_array($result)){
+            $bookcase_name = $row['bookcase_name'];
+        }
+    }
+    if(!isset($_POST['bookcase'])){
+        header("Location: index.php");
     }
 ?>
 <!DOCTYPE html>
@@ -34,21 +44,18 @@
 
         <main class="main-container">
             <div class="mobile-container left-shelf">
-                <h1 class="header--big text--unbold text--italize">Shelves</h1>
+                <h1 class="header--big text--unbold text--italize"><?php echo $bookcase_name?></h1>
                 <form action="book.php" method="post" class="form-container bookcase-form-container">
                     <select name="shelves" class="select">
                     <?php 
-                        //establish db connection
-                        include("db_connect.php");
-
                         $user_id = $_SESSION['user'][0];
-                        $query = "SELECT * FROM shelf_bookcase JOIN bookcase ON shelf_bookcase.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
+                        $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
                         $result = mysqli_query($db_connection, $query);
                         while($row = mysqli_fetch_array($result)){
 
                         
                     ?>
-                        <option><?php echo $row[0]; ?></option>
+                        <option><?php echo $row[1]; ?></option>
                         <?php } ?>
                     </select>
                     <div class="double-button-container">

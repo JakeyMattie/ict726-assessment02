@@ -54,7 +54,7 @@
                     </tr>
                     <?php while($row = mysqli_fetch_array($result)){ ?>
                         <tr>
-                            <td><a href="display.php?id=<?php echo $row['isbn']; ?>"><?php echo $row['isbn']; ?></a></td>
+                            <td><a href="display.php?id=<?php echo $row['isbn'];?>"><?php echo $row['isbn']; ?></a></td>
                             <td><?php echo $row['title']; ?></td>
                             <td><?php echo $row['first_name'] . " " . $row['last_name']; ?></td>
                             <td><?php echo $row['name'] ?></td>

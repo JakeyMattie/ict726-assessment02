@@ -1,7 +1,8 @@
 <?php 
     session_start();
     if(isset($_SESSION['user'])){
-        echo $_SESSION['user'][0]; 
+        echo $_SESSION['user'][0];
+        include('add-bookcase-process.php'); 
     }else{
         header("Location: login.php");
     }
@@ -22,6 +23,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
         <script src="" async defer></script>
+
+        <style>
+            .prompt{
+                color: #180A29;
+            }
+        </style>
     </head>
 
     <body class="flex-wrapper">
@@ -34,23 +41,20 @@
 
             <div class="mobile-container right-bookcase">
                 <h1 class="header--big text--unbold text--italize">Bookcases</h1>
-
+                <span><?php echo isset($success) ? $success : "" ?></span>
                 <form action="shelf.php" method="post" class="form-container bookcase-form-container">
                     <select name="bookcase" class="select">
                         <?php 
-                            $user_id = $_SESSION['user'][0];
-
-                            //create database connection
                             include("db_connect.php");
-
                             //select bookcase from user
+                            $user_id = $_SESSION['user'][0];
                             $query = "SELECT * FROM bookcase where user_id = $user_id";
 
                             $result = mysqli_query($db_connection, $query);
 
                             while($row = mysqli_fetch_array($result)){
                         ?>             
-                                <option value='<?php echo $row['bookcase_id']; ?>'> <?php echo $row['name']; ?> </option>
+                                <option value='<?php echo $row['bookcase_id']; ?>'> <?php echo $row['bookcase_name']; ?> </option>
                             
                         <?php } ?>
                     </select>
@@ -60,10 +64,11 @@
                     </div>
                 </form>
 
-                <form action="bookcase.php" method="post" class="form-container bookcase-add-container">
-                    <label for="username" class="form__label bookcase-form__label">Add Bookcase:</label>
-                    <input type="text" class="form__input bookcase-form__input" name="username" placeholder="Enter text here">
-                    <input type="submit" class="submit submit--dark submit--small" value="Add">
+                <form method="post" class="form-container bookcase-add-container">
+                    <label for="bookcase_name" class="form__label bookcase-form__label">Add Bookcase:</label>
+                    <span class="prompt"><?php echo isset($name_error) ? $name_error : "" ?></span>
+                    <input type="text" class="form__input bookcase-form__input" name="bookcase_name" placeholder="Enter text here" value='<?php echo isset($name) ? $name : "" ?>'>
+                    <input type="submit" class="submit submit--dark submit--small" value="Add" name="add">
                 </form>
             </div>
         </main>
