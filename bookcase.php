@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+    if(isset($_SESSION['user'])){
+        echo $_SESSION['user'][0]; 
+    }else{
+        header("Location: login.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +26,7 @@
 
     <body class="flex-wrapper">
         <header>
-            <!-- Will update once the nav bar is working on one page-->
+            <?php include("nav.php"); ?>
         </header>
 
         <main class="main-container">
@@ -28,13 +37,26 @@
 
                 <form action="shelf.php" method="post" class="form-container bookcase-form-container">
                     <select name="bookcase" class="select">
-                        <option>Bookcase #1</option>
-                        <option>Bookcase #2</option>
-                        <option>Bookcase #3</option>
+                        <?php 
+                            $user_id = $_SESSION['user'][0];
+
+                            //create database connection
+                            include("db_connect.php");
+
+                            //select bookcase from user
+                            $query = "SELECT * FROM bookcase where user_id = $user_id";
+
+                            $result = mysqli_query($db_connection, $query);
+
+                            while($row = mysqli_fetch_array($result)){
+                        ?>             
+                                <option value='<?php echo $row['bookcase_id']; ?>'> <?php echo $row['name']; ?> </option>
+                            
+                        <?php } ?>
                     </select>
                     <div class="double-button-container">
-                        <input type="submit" class="submit submit--dark" value="Proceed">
-                        <input type="submit" class="submit submit--remove" value="Delete">
+                        <input type="submit" class="submit submit--dark" value="Proceed" name="proceed">
+                        <input type="submit" class="submit submit--remove" value="Remove" name="remove">
                     </div>
                 </form>
 

@@ -1,3 +1,15 @@
+<?php 
+    session_start();
+    if(isset($_SESSION['user'])){
+        echo $_SESSION['user'][0]; 
+    }else{
+        header("Location: login.php");
+    }
+
+    if (isset($_POST['proceed'])){
+        $bookcase = $_POST['bookcase'];
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,18 +29,27 @@
 
     <body class="flex-wrapper">
         <header>
-            <!-- Will update once the nav bar is working on one page-->
+            <?php include("nav.php"); ?>
         </header>
 
         <main class="main-container">
             <div class="mobile-container left-shelf">
                 <h1 class="header--big text--unbold text--italize">Shelves</h1>
-
                 <form action="book.php" method="post" class="form-container bookcase-form-container">
                     <select name="shelves" class="select">
-                        <option>Shelf #1</option>
-                        <option>Shelf #2</option>
-                        <option>Shelf #3</option>
+                    <?php 
+                        //establish db connection
+                        include("db_connect.php");
+
+                        $user_id = $_SESSION['user'][0];
+                        $query = "SELECT * FROM shelf_bookcase JOIN bookcase ON shelf_bookcase.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
+                        $result = mysqli_query($db_connection, $query);
+                        while($row = mysqli_fetch_array($result)){
+
+                        
+                    ?>
+                        <option><?php echo $row[0]; ?></option>
+                        <?php } ?>
                     </select>
                     <div class="double-button-container">
                         <input type="submit" class="submit submit--dark" value="Proceed">
