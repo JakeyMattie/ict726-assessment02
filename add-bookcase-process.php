@@ -2,6 +2,7 @@
     include("db_connect.php");
     include("input-validation.php");
     $user_id = $_SESSION['user'][0];
+    $errors = 0;
     if(isset($_POST['add'])){
         if(empty($_POST['bookcase_name'])){
             $name_error = "Bookcase name cannot be blank!";
@@ -27,7 +28,7 @@
         }
 
         if($errors == 0){
-            $query = "INSERT INTO bookcase (name, user_id) VALUES ('$name','$user_id');";
+            $query = "INSERT INTO bookcase (bookcase_name, user_id) VALUES ('$name','$user_id');";
 
             $result = mysqli_query($db_connection, $query);
             $err_no = $result.mysqli_errno($db_connection);

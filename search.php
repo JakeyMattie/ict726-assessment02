@@ -25,7 +25,7 @@
         </header>
 
         <main class="mobile-container search-container">
-            <h1>Search</h1>
+            <h1 class="header--big text--unbold text--italize">Search</h1>
             <?php 
                 session_start();
                 if(isset($_SESSION['user'])){
@@ -48,22 +48,28 @@
                 <?php
                     switch($choice){
                         case "isbn":
-                            echo "<h2>ISBN Matches</h2>";
+                            echo "<h1 class='header--big text--unbold text--italize'>ISBN Matches</h1>";
+                            echo "<div class='mobile-container search-result'>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<a href=display.php?id=" .$row['isbn'] .">".$row['isbn']."</a>";
-                            }
+                            }                            
+                            echo "</div>";
                             break;
                         case "title":
-                            echo "<h2>Book Title Matches</h2>";
+                            echo "<h1 class='header--big text--unbold text--italize'>Book Title Matches</h1>";
+                            echo "<div class='mobile-container search-result'>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<a href=display.php?id=" .$row['isbn'] .">".$row['title']."</a>";
                             }
+                            echo "</div>";
                             break;
                         case "author":
-                            echo "<h2>Author Matches</h2>";
+                            echo "<h1 class='header--big text--unbold text--italize'>Author Matches</h1>";
+                            echo "<div class='mobile-container search-result'>";
                             while($row = mysqli_fetch_array($result)){
                                 echo "<a href=display.php?id=" .$row['isbn'] .">".$row['first_name']." " . $row['last_name'] . "</a>";
                             }
+                            echo "</div>";
                             break;
                         default:
                             break;

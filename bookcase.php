@@ -56,7 +56,7 @@
                         <form action="shelf.php" method="post" class="form-container bookcase-form-container">
                             <select name="bookcase" class="select">
                                 <?php while($row = mysqli_fetch_array($result)){ ?>             
-                                <option value='<?php echo $row['bookcase_id']; ?>'> <?php echo $row['bookcase_name']; ?> </option>
+                                <option class="text--capitalize" value='<?php echo $row['bookcase_id']; ?>'> <?php echo $row['bookcase_name']; ?> </option>
                             <?php } ?>
                             </select>
                             <div class="double-button-container">

@@ -44,7 +44,7 @@
 
         <main class="main-container">
             <div class="mobile-container left-shelf">
-                <h1 class="header--big text--unbold text--italize"><?php echo $bookcase_name?></h1>
+                <h1 class="header--big text--unbold text--italize text--capitalize"><?php echo $bookcase_name?></h1>
                 <?php 
                     $user_id = $_SESSION['user'][0];
                     $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
