@@ -356,12 +356,14 @@ footer {
 /* ========== BOOKCASE/SHELF/BOOK.php */
 
 .left-bookcase,
-.right-shelf {
+.right-shelf,
+.left-book {
     display: none;
 }
 
 .right-bookcase,
-.left-shelf {
+.left-shelf,
+.right-book {
     gap: 4em;
 }
 
@@ -729,8 +731,14 @@ footer {
         background-image: url(../Photos/Shelf.jpg);
     }
 
+    .left-book {
+        background-image: url(../Photos/Book02.jpg);
+        background-position-x: 35%;
+    }
+
     .right-bookcase,
-    .left-shelf {
+    .left-shelf,
+    .right-book {
         gap: 7.5em;
     }
 

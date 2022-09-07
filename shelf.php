@@ -53,7 +53,7 @@
                     </select>
                     <div class="double-button-container">
                         <input type="submit" class="submit submit--dark" value="Proceed">
-                        <input type="submit" class="submit submit--remove" value="Remove">
+                        <input type="submit" class="submit submit--remove" value="Delete">
                     </div>
                 </form>
 
