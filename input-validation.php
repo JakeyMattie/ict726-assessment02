@@ -13,6 +13,9 @@
             case "password":
                 return(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $string));
                 break;
+            case "normal":
+                return(!preg_match("/^[a-zA-Z0-9 ]*$/", $string));
+                break;
             default:
                 return FALSE;
                 break;                                    

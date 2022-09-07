@@ -41,6 +41,10 @@ h1 {
     letter-spacing: 2.5px;
 }
 
+.text--capitalize{
+    text-transform: capitalize;
+}
+
 /* ----- Object Formatting */
 
 .submit {
@@ -280,6 +284,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     text-align: center;
     gap: 3em;
     padding: 2em;
@@ -321,6 +326,20 @@ footer {
 
 .search-form__textfield:focus {
     color: var(--dark);
+}
+
+.search-result {
+    gap: 1em;
+}
+
+.search-result a {
+    color: var(--dark);
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.search-result a:hover {
+    color: var(--second);
 }
 
 /* ========== DISPLAY.php */
@@ -635,12 +654,14 @@ footer {
         grid-row: 1 / -1;
     }
 
-    .index-content__header {
-        margin-top: 2em;
-    }
-
     .index-content__desc {
         font-size: 1.25rem;
+    }
+
+    /* ===== SEARCH.php */
+
+    .search-result a {
+        font-size: 1.5rem;
     }
 
     /* ===== DISPLAY.php */
