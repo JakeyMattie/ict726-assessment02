@@ -67,7 +67,7 @@
                             echo "<h1 class='header--big text--unbold text--italize'>Author Matches</h1>";
                             echo "<div class='mobile-container search-result'>";
                             while($row = mysqli_fetch_array($result)){
-                                echo "<a href=display.php?id=" .$row['isbn'] .">".$row['first_name']." " . $row['last_name'] . "</a>";
+                                echo "<a href=display.php?id=" .$row['isbn'] .">".$row['first_name']." " . $row['last_name'] ." - ". $row['title'] . "</a>";
                             }
                             echo "</div>";
                             break;
