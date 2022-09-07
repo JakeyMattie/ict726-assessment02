@@ -40,11 +40,11 @@
                 <form method="POST" class="form-container login-form-container--gap">
                     <!-- USERNAME -->
                     <span class="prompt"><?php echo isset($username_error) ? $username_error : "" ?></span>
-                    <input type="text" class="form__input login-form__input" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">
+                    <input type="text" class="form__input login-form__input" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" required>
                     
                     <!-- PASSWORD -->
                     <span class="prompt"><?php echo isset($password_error) ? $password_error : "" ?></span>
-                    <input type="password" class="form__input login-form__input" name="password" placeholder="Password">
+                    <input type="password" class="form__input login-form__input" name="password" placeholder="Password" required>
                     <input type="submit" class="submit submit--light submit--small" value="Sign In" name="submit">
                 </form>
                 <p class="right-login__para">Don't have an account? <a href="register.php" class="right-login__link text--bold">Sign up now</a></p>

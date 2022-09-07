@@ -2,13 +2,32 @@
     session_start();
     if(isset($_SESSION['user'])){
         echo $_SESSION['user'][0]; 
+        include("add-shelf-process.php");
     }else{
-        header("Location: login.php");
     }
 
-    if (isset($_POST['proceed'])){
+    if(isset($_POST['proceed'])){
+        //establish db connection
+        include("db_connect.php");
         $bookcase = $_POST['bookcase'];
+        $query = "SELECT bookcase_id, bookcase_name FROM bookcase WHERE bookcase_id = '$bookcase';";
+        $result = mysqli_query($db_connection, $query);
+        while($row = mysqli_fetch_array($result)){
+            $bookcase_name = $row['bookcase_name'];
+            $_SESSION['bookcase'] = $row;
+        }
     }
+    
+    if(isset($_SESSION['bookcase'][0])){
+        $bookcase = $_SESSION['bookcase']['bookcase_id'];
+        $bookcase_name = $_SESSION['bookcase']['bookcase_name'];
+    }
+
+    if(!isset($_POST['bookcase']) && !isset($_SESSION['bookcase'])){
+        header("Location: index.php");
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,33 +53,33 @@
 
         <main class="main-container">
             <div class="mobile-container left-shelf">
-                <h1 class="header--big text--unbold text--italize">Shelves</h1>
-                <form action="book.php" method="post" class="form-container bookcase-form-container">
-                    <select name="shelves" class="select">
-                    <?php 
-                        //establish db connection
-                        include("db_connect.php");
-
-                        $user_id = $_SESSION['user'][0];
-                        $query = "SELECT * FROM shelf_bookcase JOIN bookcase ON shelf_bookcase.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
-                        $result = mysqli_query($db_connection, $query);
-                        while($row = mysqli_fetch_array($result)){
-
-                        
-                    ?>
-                        <option><?php echo $row[0]; ?></option>
-                        <?php } ?>
-                    </select>
-                    <div class="double-button-container">
-                        <input type="submit" class="submit submit--dark" value="Proceed">
-                        <input type="submit" class="submit submit--remove" value="Delete">
-                    </div>
-                </form>
-
-                <form action="shelf.php" method="post" class="form-container bookcase-add-container">
-                    <label for="username" class="form__label bookcase-form__label">Add Shelf:</label>
-                    <input type="text" class="form__input bookcase-form__input" name="username" placeholder="Enter text here">
-                    <input type="submit" class="submit submit--dark submit--small" value="Add">
+                <h1 class="header--big text--unbold text--italize text--capitalize"><?php echo $bookcase_name?></h1>
+                <?php echo isset($success) ? $success : ""; ?>
+                <?php 
+                    $user_id = $_SESSION['user'][0];
+                    $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
+                    $result = mysqli_query($db_connection, $query);
+                    if(mysqli_num_rows($result) == 0){ ?>
+                        <h2>This bookcase does not have any shelves yet.</h2>
+                    <?php }else{ ?>
+                        <form method="post" class="form-container bookcase-form-container">
+                            <select name="shelf" class="select">
+                                <?php while($row = mysqli_fetch_array($result)){?>
+                                    <option><?php echo $row[1]; ?></option>
+                                <?php } ?>
+                            </select>
+                            <div class="double-button-container">
+                                <input type="submit" class="submit submit--dark" value="Proceed">
+                                <input type="submit" class="submit submit--remove" value="Remove">
+                            </div>
+                        </form>
+                    <?php } ?>
+                <form method="post" class="form-container bookcase-add-container">
+                    <label for="shelf_name" class="form__label bookcase-form__label">Add Shelf:</label>
+                    <?php echo isset($shelf_error) ? "<span>" . $shelf_error . "</span>" : "" ?>
+                    <input type="text" class="form__input bookcase-form__input" name="shelf_name" placeholder="Enter text here">
+                    <input type="hidden" name="bookcase_id" value="<?php echo $bookcase; ?>">
+                    <input type="submit" class="submit submit--dark submit--small" value="Add" name="add">
                 </form>
             </div>
 
