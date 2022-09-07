@@ -41,28 +41,30 @@
 
             <div class="mobile-container right-bookcase">
                 <h1 class="header--big text--unbold text--italize">Bookcases</h1>
-                <span><?php echo isset($success) ? $success : "" ?></span>
-                <form action="shelf.php" method="post" class="form-container bookcase-form-container">
-                    <select name="bookcase" class="select">
-                        <?php 
-                            include("db_connect.php");
-                            //select bookcase from user
-                            $user_id = $_SESSION['user'][0];
-                            $query = "SELECT * FROM bookcase where user_id = $user_id";
+                <?php 
+                    include("db_connect.php");
+                    //select bookcase from user
+                    $user_id = $_SESSION['user'][0];
+                    $query = "SELECT * FROM bookcase where user_id = $user_id";
 
-                            $result = mysqli_query($db_connection, $query);
+                    $result = mysqli_query($db_connection, $query);
 
-                            while($row = mysqli_fetch_array($result)){
-                        ?>             
+                    if(mysqli_num_rows($result) == 0){ ?>
+                        <h2> You don't have any bookcases. </h2>
+                    <?php }else{ ?>
+                        <?php echo isset($success) ? "<span>".$success."</span>" : "" ?>
+                        <form action="shelf.php" method="post" class="form-container bookcase-form-container">
+                            <select name="bookcase" class="select">
+                                <?php while($row = mysqli_fetch_array($result)){ ?>             
                                 <option value='<?php echo $row['bookcase_id']; ?>'> <?php echo $row['bookcase_name']; ?> </option>
-                            
-                        <?php } ?>
-                    </select>
-                    <div class="double-button-container">
-                        <input type="submit" class="submit submit--dark" value="Proceed" name="proceed">
-                        <input type="submit" class="submit submit--remove" value="Remove" name="remove">
-                    </div>
-                </form>
+                            <?php } ?>
+                            </select>
+                            <div class="double-button-container">
+                                <input type="submit" class="submit submit--dark" value="Proceed" name="proceed">
+                                <input type="submit" class="submit submit--remove" value="Remove" name="remove">
+                            </div>
+                        </form>
+                    <?php } ?>
 
                 <form method="post" class="form-container bookcase-add-container">
                     <label for="bookcase_name" class="form__label bookcase-form__label">Add Bookcase:</label>

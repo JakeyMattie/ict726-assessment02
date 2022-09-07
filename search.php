@@ -29,7 +29,7 @@
             <?php 
                 session_start();
                 if(isset($_SESSION['user'])){
-                    echo $_SESSION['user'][0]; 
+                    //echo $_SESSION['user'][0]; 
                 }else{
                     header("Location: login.php");
                 }
@@ -40,31 +40,58 @@
                     <option value="title">Book Title</option>
                     <option value="author">Author</option>
                 </select>
+                <span><?php echo isset($keyword_error) ? $keyword_error : ""?></span>
                 <input type="text" class="form__input search-form__textfield" placeholder="Insert text here" name="keyword">
                 <input type="submit" class="submit submit--dark" value="Submit" name="submit">
             </form>
-            <?php if(isset($result)){ ?>
-                <table>
-                    <tr>
-                        <th>ISBN</th>
-                        <th>Book Title</th>
-                        <th>Author</th>
-                        <th>Genre</th>
-                        <th>List Price</th>
-                    </tr>
-                    <?php while($row = mysqli_fetch_array($result)){ ?>
-                        <tr>
-                            <td><a href="display.php?id=<?php echo $row['isbn'];?>"><?php echo $row['isbn']; ?></a></td>
-                            <td><?php echo $row['title']; ?></td>
-                            <td><?php echo $row['first_name'] . " " . $row['last_name']; ?></td>
-                            <td><?php echo $row['name'] ?></td>
-                            <td><?php echo $row['list_price'] ?></td>
-                        </tr>
-                    <?php } ?>
-                </table>
-            <?php } ?>
+            <?php if(isset($result) && mysqli_num_rows($result) > 0){ ?>
+                <?php
+                    switch($choice){
+                        case "isbn":
+                            echo "<h2>ISBN Matches</h2>";
+                            while($row = mysqli_fetch_array($result)){
+                                echo "<a href=display.php?id=" .$row['isbn'] .">".$row['isbn']."</a>";
+                            }
+                            break;
+                        case "title":
+                            echo "<h2>Book Title Matches</h2>";
+                            while($row = mysqli_fetch_array($result)){
+                                echo "<a href=display.php?id=" .$row['isbn'] .">".$row['title']."</a>";
+                            }
+                            break;
+                        case "author":
+                            echo "<h2>Author Matches</h2>";
+                            while($row = mysqli_fetch_array($result)){
+                                echo "<a href=display.php?id=" .$row['isbn'] .">".$row['first_name']." " . $row['last_name'] . "</a>";
+                            }
+                            break;
+                        default:
+                            break;
+                    }    
+                    
+                ?>
+                <!-- </table> -->
+                <?php }else{
+                    if(isset($keyword)){
+                        switch($choice){
+                            case "isbn":
+                                echo "<h2>No book with the ISBN: " . $keyword . "</h2>";
+                                break;
+                            case "title":
+                                echo "<h2>No book with the title: " . $keyword . "</h2>";
+                                break;
+                            case "author":
+                                echo "<h2>No book with the author:  " . $keyword . "</h2>";
+                                break;
+                            default:
+                                break;                            
+                        }
+                    }
+                }
+            
+            ?>
 
-            <form method="post" class="form-container add-to-bookcase-container">
+            <!-- <form method="post" class="form-container add-to-bookcase-container">
                 <select name="select-bookcase" class="select">
                     <option>Bookcase #1</option>
                     <option>Bookcase #2</option>
@@ -77,7 +104,7 @@
                     <option>Shelf #3</option>
                 </select>
                 <input type="submit" class="submit submit--dark" value="Add" name="add">
-            </form>
+            </form> -->
         </main>
 
         <footer>

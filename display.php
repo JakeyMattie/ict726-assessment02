@@ -57,6 +57,7 @@
 
                 $check_shelf = "SELECT * FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN bookcase on bookcase.bookcase_id = shelf.bookcase_id WHERE isbn='$isbn' AND user_id='$user_id';";
                 $check_shelf_result = mysqli_query($db_connection, $check_shelf);
+                
                 if(mysqli_num_rows($check_heap_result) == 1){
                     $location = "Heap";
                 }

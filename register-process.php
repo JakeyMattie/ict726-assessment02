@@ -81,7 +81,7 @@
         
         if($errors == 0){
             //insert query
-            $register_user = "INSERT INTO user (first_name, last_name, username, password, email, is_admin) VALUES ('$first_name', '$last_name', '$username', '$hash', '$email', 0)";
+            $register_user = "INSERT INTO user (first_name, last_name, username, password, email, is_admin) VALUES ('$first_name', '$last_name', '$username', '$hash', '$email')";
 
             //run query and check for errors
             $result = mysqli_query($db_connection, $register_user);

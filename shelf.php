@@ -45,25 +45,25 @@
         <main class="main-container">
             <div class="mobile-container left-shelf">
                 <h1 class="header--big text--unbold text--italize"><?php echo $bookcase_name?></h1>
-                <form action="book.php" method="post" class="form-container bookcase-form-container">
-                    <select name="shelves" class="select">
-                    <?php 
-                        $user_id = $_SESSION['user'][0];
-                        $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
-                        $result = mysqli_query($db_connection, $query);
-                        while($row = mysqli_fetch_array($result)){
-
-                        
-                    ?>
-                        <option><?php echo $row[1]; ?></option>
-                        <?php } ?>
-                    </select>
-                    <div class="double-button-container">
-                        <input type="submit" class="submit submit--dark" value="Proceed">
-                        <input type="submit" class="submit submit--remove" value="Remove">
-                    </div>
-                </form>
-
+                <?php 
+                    $user_id = $_SESSION['user'][0];
+                    $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
+                    $result = mysqli_query($db_connection, $query);
+                    if(mysqli_num_rows($result) == 0){ ?>
+                        <h2>This bookcase does not have any shelves yet.</h2>
+                    <?php }else{ ?>
+                        <form action="book.php" method="post" class="form-container bookcase-form-container">
+                            <select name="shelves" class="select">
+                                <?php while($row = mysqli_fetch_array($result)){?>
+                                    <option><?php echo $row[1]; ?></option>
+                                <?php } ?>
+                            </select>
+                            <div class="double-button-container">
+                                <input type="submit" class="submit submit--dark" value="Proceed">
+                                <input type="submit" class="submit submit--remove" value="Remove">
+                            </div>
+                        </form>
+                    <?php } ?>
                 <form action="shelf.php" method="post" class="form-container bookcase-add-container">
                     <label for="username" class="form__label bookcase-form__label">Add Shelf:</label>
                     <input type="text" class="form__input bookcase-form__input" name="username" placeholder="Enter text here">

@@ -55,13 +55,9 @@
             if(mysqli_num_rows($result) == 1){
                 $user = mysqli_fetch_array($result);
                 if($user[2] == $hash){
-                    if($user[6] == 0){
                         session_start();
                         $_SESSION['user'] = $user;
-                        header("Location: index.php");
-                    }else{
-                        echo "<br>Admin!";
-                    }                
+                        header("Location: index.php");            
                 }else{
                     $password_error = "Incorrect password.";
                     $errors++;

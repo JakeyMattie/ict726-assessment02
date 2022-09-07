@@ -40,7 +40,22 @@
              </div>
              <div class="index-content-container">
                  <h1 class="index-content__header header--big">Welcome, <?php echo $_SESSION['user']['first_name']; ?></h1>
-                 <p class="index-content__desc">Lorem ipsum something something subheading dolor sit amet.</p>
+                 <h2>Your bookcases:</h2>
+                 <?php
+                    include("db_connect.php");
+                    $user_id = $_SESSION['user'][0];
+                    $query = "SELECT bookcase_name FROM bookcase JOIN user ON bookcase.user_id = user.user_id WHERE bookcase.user_id='$user_id'";
+                    $result = mysqli_query($db_connection, $query);
+                    if(mysqli_num_rows($result) == 0){ ?>
+                        <h3>You don't have any bookcases.</h3>
+                    <?php
+                        }else{
+                            while($row = mysqli_fetch_array($result)){?>
+                                <h3><?php echo $row[0]; ?></h3>
+                    <?php        }
+                        }
+                    ?>
+                 <!-- <p class="index-content__desc">Lorem ipsum something something subheading dolor sit amet.</p> -->
              </div>
         </main>
 
