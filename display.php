@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if(isset($_SESSION['user'])){
-        if(isset($_GET['id'])){
+        if(isset($_GET['id']) || $_POST['id']){
             echo $_SESSION['user'][0]; 
         }else{
             header("Location: search.php");
@@ -37,9 +37,13 @@
         </header>
         <main class="main-container">
             <?php 
-            if(isset($_GET['id'])){
+            if(isset($_GET['id']) || $_POST['proceed']){
                 include("db_connect.php");
-                $isbn = $_GET["id"];
+                if(isset($_GET['id'])){
+                    $isbn = mysqli_real_escape_string($db_connection,$_GET["id"]);
+                }else if($_POST['proceed']){
+                    $isbn = mysqli_real_escape_string($db_connection,$_POST["id"]);
+                }
                 $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
                 $result = mysqli_query($db_connection, $query);
                 while($row = mysqli_fetch_array($result)){

@@ -9,7 +9,7 @@
     if(isset($_POST['proceed'])){
         //establish db connection
         include("db_connect.php");
-        $bookcase = $_POST['bookcase'];
+        $bookcase = mysqli_real_escape_string($db_connection,$_POST['bookcase']);
         $query = "SELECT bookcase_id, bookcase_name FROM bookcase WHERE bookcase_id = '$bookcase';";
         $result = mysqli_query($db_connection, $query);
         while($row = mysqli_fetch_array($result)){
@@ -62,15 +62,15 @@
                     if(mysqli_num_rows($result) == 0){ ?>
                         <h2>This bookcase does not have any shelves yet.</h2>
                     <?php }else{ ?>
-                        <form method="post" class="form-container bookcase-form-container">
+                        <form action="book.php" method="post" class="form-container bookcase-form-container">
                             <select name="shelf" class="select">
                                 <?php while($row = mysqli_fetch_array($result)){?>
-                                    <option><?php echo $row[1]; ?></option>
+                                    <option class="text--capitalize" value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
                                 <?php } ?>
                             </select>
                             <div class="double-button-container">
-                                <input type="submit" class="submit submit--dark" value="Proceed">
-                                <input type="submit" class="submit submit--remove" value="Remove">
+                                <input type="submit" class="submit submit--dark" value="Proceed" name="proceed">
+                                <input type="submit" class="submit submit--remove" value="Remove" name="remove">
                             </div>
                         </form>
                     <?php } ?>
