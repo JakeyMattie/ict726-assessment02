@@ -122,10 +122,21 @@ h1 {
 }
 
 .form-container {
+    height: 100%;
     width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.form-container--rows {
+    width: 100%;
+}
+
+.addtolibrary-container {
+    margin: 2em;
+    padding: 2em 0;
+    gap: 2em;
 }
 
 /* ----- Form Formatting */
@@ -150,6 +161,10 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--light-opacity25);
+}
+
+.form__input[type=date]:not(:valid)::-webkit-datetime-edit {
+    color: var(--dark-opacity25);
 }
 
 .form__input:focus {
@@ -400,14 +415,21 @@ footer {
 }
 
 .bookcase-form__input {
+    color: var(--dark);
     margin-bottom: 1em;
     border: none;
     border-bottom: 2px var(--dark) solid;
 }
 
+.bookcase-form__input:focus {
+    color: var(--dark);
+}
+
 .bookcase-form__input::placeholder {
     color: var(--dark-opacity25);
 }
+
+/* ========== ADD TO LIBRARY.php */
 
 /* ==================== MEDIA QUERIES ==================== */
 
@@ -445,6 +467,11 @@ footer {
     }
 
     /* ----- Form */
+
+    .form-container--rows {
+        display: flex;
+        gap: 3em;
+    }
 
     .form__input::placeholder {
         color: var(--dark-opacity25);
