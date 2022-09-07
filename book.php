@@ -39,7 +39,7 @@
                 </form>
             </div>
         </main>
-        
+    
         <footer>
             <p>Copyright © 2022 <span class="footer--big-screen">| Developed by Jacob Antonio, Jake Calub, and Peter de Vera</span></p>
         </footer>
