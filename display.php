@@ -44,7 +44,7 @@
                 }else if($_POST['proceed']){
                     $isbn = mysqli_real_escape_string($db_connection,$_POST["id"]);
                 }
-                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
+                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name, publish_date FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
                 $result = mysqli_query($db_connection, $query);
                 while($row = mysqli_fetch_array($result)){
                     $ISBN = $row['isbn'];
@@ -52,6 +52,7 @@
                     $author = $row['first_name'] . " " . $row['last_name'];
                     $genre = $row['name'];
                     $list_price = $row['list_price'];
+                    $publish_date = $row['publish_date'];
                 }
 
                 $user_id = $_SESSION['user'][0];
@@ -73,12 +74,13 @@
             }           
             ?>
             <div class="mobile-container left-display">
-                <h1 class="left-display__header header--big text--unbold text--italize"><?php echo $title ?></h1>
+                <h1 class="left-display__header header--big text--unbold text--italize text--capitalize"><?php echo $title ?></h1>
                 <ul>
                     <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
                     <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
                     <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
                     <li class="left-display__output"><span class="left-display__output--title">List Price:</span> <?php echo $list_price;?></li>
+                    <li class="left-display__output"><span class="left-display__output--title">Publish Date:</span> <?php echo $publish_date;?></li>
                     <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $location;?></li>
                 </ul>
 
