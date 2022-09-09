@@ -68,7 +68,7 @@
 
                 <form method="post" class="form-container bookcase-add-container">
                     <label for="bookcase_name" class="form__label bookcase-form__label">Add Bookcase:</label>
-                    <span class="prompt"><?php echo isset($name_error) ? $name_error : "" ?></span>
+                    <?php echo isset($name_error) ? "<span class='error-message'>" . $name_error . "</span>": ""?>
                     <input type="text" class="form__input bookcase-form__input" name="bookcase_name" placeholder="Enter text here" value='<?php echo isset($name) ? $name : "" ?>'>
                     <input type="submit" class="submit submit--dark submit--small" value="Add" name="add">
                 </form>

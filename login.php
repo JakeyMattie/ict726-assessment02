@@ -21,12 +21,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
         <script src="" async defer></script>
-
-        <style>
-            .prompt{
-                color: #180A29;
-            }
-        </style>
     </head>
 
     <body class="background-color flex-wrapper">
@@ -35,15 +29,16 @@
         <main class="main-container">
             <div class="left-login-container background-image"></div>
             <div class="mobile-container right-login-container">
-                <span class="prompt"><?php echo isset($_GET['success']) ? "Registration successful!" : "" ?></span>
+                <!-- <span class="prompt"><?php echo isset($_GET['success']) ? "<spanRegistration successful!" : "" ?></span> -->
                 <h1 class="right-login__header header--big text--unbold">Login</h1>
+                <?php echo isset($_GET['success']) ? "<p class='success-message'> Registration successful!</p>": ""?>
                 <form method="POST" class="form-container login-form-container--gap">
                     <!-- USERNAME -->
-                    <span class="prompt"><?php echo isset($username_error) ? $username_error : "" ?></span>
+                    <?php echo isset($username_error) ? "<span class='error-message'>" . $username_error . "</span>": ""?>
                     <input type="text" class="form__input login-form__input" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">
                     
                     <!-- PASSWORD -->
-                    <span class="prompt"><?php echo isset($password_error) ? $password_error : "" ?></span>
+                    <?php echo isset($password_error) ? "<span class='error-message'>" . $password_error . "</span>": ""?>
                     <input type="password" class="form__input login-form__input" name="password" placeholder="Password" required>
                     <input type="submit" class="submit submit--light submit--small" value="Sign In" name="submit" required>
                 </form>

@@ -76,7 +76,7 @@
                     <?php } ?>
                 <form method="post" class="form-container bookcase-add-container">
                     <label for="shelf_name" class="form__label bookcase-form__label">Add Shelf:</label>
-                    <?php echo isset($shelf_error) ? "<span>" . $shelf_error . "</span>" : "" ?>
+                    <?php echo isset($shelf_error) ? "<span class='error-message'>" . $shelf_error . "</span>" : "" ?>
                     <input type="text" class="form__input bookcase-form__input" name="shelf_name" placeholder="Enter text here">
                     <input type="hidden" name="bookcase_id" value="<?php echo $bookcase; ?>">
                     <input type="submit" class="submit submit--dark submit--small" value="Add" name="add">

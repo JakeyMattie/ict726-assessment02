@@ -126,8 +126,8 @@
             }else{
                 $add_author = "INSERT INTO author (first_name, last_name) values ('$first_name','$last_name')";
                 $add_author_result = mysqli_query($db_connection, $add_author);
-                $err_no = $add_author_result.mysqli_errno($db_connection);
-                $err_message = $add_author_result.mysqli_error($db_connection);
+                // $err_no = $add_author_result.mysqli_errno($db_connection);
+                // $err_message = $add_author_result.mysqli_error($db_connection);
                 //check for error
                 // switch ($err_no){                   
                 //     case 10:
