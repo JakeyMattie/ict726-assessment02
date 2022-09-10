@@ -1,6 +1,6 @@
 <?php 
     include("search-process.php"); 
-    include("add-to-bookcase-process.php"); 
+    // include("add-to-bookcase-process.php"); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +29,8 @@
             <?php 
                 session_start();
                 if(isset($_SESSION['user'])){
-                    //echo $_SESSION['user'][0]; 
+                    //echo $_SESSION['user'][0];
+                    $user_id = $_SESSION['user'][0]; 
                 }else{
                     header("Location: login.php");
                 }
@@ -43,6 +44,7 @@
                 <span><?php echo isset($keyword_error) ? $keyword_error : ""?></span>
                 <input type="text" class="form__input search-form__textfield" placeholder="Insert text here" name="keyword">
                 <input type="submit" class="submit submit--dark" value="Submit" name="submit">
+                <input type="hidden" name="user-id" value='<?php echo $user_id; ?>'>
             </form>
             <?php if(isset($result) && mysqli_num_rows($result) > 0){ ?>
                 <?php
@@ -96,6 +98,32 @@
                 }
             
             ?>
+                <?php
+                    $get_heap = "SELECT DISTINCT(heap.user_id), book.isbn, book.title, author.first_name, author.last_name, book.publish_date, genre.name from heap JOIN book on heap.user_id = book.user_id AND heap.isbn=book.isbn JOIN genre on book.genre_id=genre.genre_id JOIN author on author.author_id=book.author_id WHERE heap.user_id='$user_id';";
+                    $get_heap_result = mysqli_query($db_connection, $get_heap);
+                    if(mysqli_num_rows($get_heap_result) == 0){
+                        echo "No Books in heap.";
+                    }else{?>
+                    <h1>Books in Heap</h1>
+                    <table>
+                        <tr>
+                            <th>ISBN</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                        </tr>
+                    <?php
+                        while($row = mysqli_fetch_array($get_heap_result)){?>
+                            <tr>
+                                
+                                    <td><a href="display.php?id=<?php echo $row['isbn']?>"><?php echo $row['isbn'] ;?></a></td>
+                                    <td><?php echo $row['title'] ;?></td>
+                                    <td><?php echo $row['first_name'] . " " . $row['last_name'];?></td>
+                                
+                            </tr>
+                        <?php } ?>
+                        </table>
+                   <?php } ?>
+                
 
             <!-- <form method="post" class="form-container add-to-bookcase-container">
                 <select name="select-bookcase" class="select">

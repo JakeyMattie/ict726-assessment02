@@ -2,6 +2,10 @@
     session_start();
     if(isset($_SESSION['user'])){
         echo $_SESSION['user'][0];
+        $user_id = $_SESSION['user'][0];
+        if(!isset($_POST['proceed']) && !isset($_GET['id'])){
+            header('Location: search.php');
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -31,11 +35,15 @@
 
             <div class="mobile-container right-book">
                 <?php
-                if($_SERVER['REQUEST_METHOD'] === 'POST'){
-                    if(isset($_POST['proceed'])){
+                    if(isset($_POST['proceed']) || isset($_GET['id'])){
                         include("db_connect.php");
-                        $shelf_id = mysqli_real_escape_string($db_connection, $_POST['shelf']);
-                        $query = "SELECT shelf.shelf_name, book.title, book.isbn FROM shelf JOIN shelf_book ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON shelf_book.ISBN=book.ISBN WHERE shelf.shelf_id = '$shelf_id';";
+                        if(isset($_POST['proceed'])){
+                            $shelf_id = mysqli_real_escape_string($db_connection, $_POST['shelf']);
+                        }else{
+                            $shelf_id = mysqli_real_escape_string($db_connection, $_GET['id']);
+                        }
+                        
+                        $query = "SELECT shelf.shelf_name, book.title, book.isbn FROM shelf JOIN shelf_book ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON shelf_book.ISBN=book.ISBN WHERE shelf.shelf_id = '$shelf_id' AND user_id='$user_id';";
                         $result = mysqli_query($db_connection, $query);
 
                         if(mysqli_num_rows($result) == 0){
@@ -49,20 +57,28 @@
                             ?>
                             <h1 class="header--big text--unbold text--italize text--capitalize"><?php echo $shelf_name; ?></h1>
                             <form action="display.php" method="post" z class="form-container bookcase-form-container">
-                            <select name="id" class="select">
+                            <!-- <select name="id" class="select"> -->
+                            <table>
+                                <tr>
+                                        <th>ISBN</th>
+                                        <th>Title</th>
+                                </tr>
                                 <?php                         
                                 while($row = mysqli_fetch_array($result)){ ?>
-                                    <option class="text--capitalize" value="<?php echo$row['isbn']; ?>"> <?php echo $row['title'] . " " . $row['isbn'];?> </option>
+                                    <tr>
+                                        <td><a href="display.php?id=<?php echo $row['isbn'];?>"><?php echo $row['isbn']; ?></a></td>
+                                        <td class="text--capitalize"><?php echo $row['title']; ?></td>
+                                    </tr>
                                 <?php } ?>
-                            </select>
-                            <div class="double-button-container">
+                                </table>
+                            <!-- </select> -->
+                            <!-- <div class="double-button-container">
                                 <input type="submit" class="submit submit--dark" value="Proceed" name='proceed'>
                                 <input type="submit" class="submit submit--remove" value="Delete">
-                            </div>
+                            </div> -->
                                 </form>
                         <?php }
                     }
-                }
                 ?>
                 <!-- <h1 class="header--big text--unbold text--italize">Books</h1>
                 <form action="display.php" method="post" class="form-container bookcase-form-container">

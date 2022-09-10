@@ -27,7 +27,9 @@
         header("Location: index.php");
     }
 
-
+    if(isset($_GET['id'])){
+        echo "<br>" .$_GET['id'];
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,9 +65,9 @@
                         <h2>This bookcase does not have any shelves yet.</h2>
                     <?php }else{ ?>
                         <form action="book.php" method="post" class="form-container bookcase-form-container">
-                            <select name="shelf" class="select">
+                            <select class="text--capitalize" name="shelf" class="select">
                                 <?php while($row = mysqli_fetch_array($result)){?>
-                                    <option class="text--capitalize" value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+                                    <option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
                                 <?php } ?>
                             </select>
                             <div class="double-button-container">

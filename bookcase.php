@@ -23,12 +23,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
         <script src="" async defer></script>
-
-        <style>
-            .prompt{
-                color: #180A29;
-            }
-        </style>
     </head>
 
     <body class="flex-wrapper">

@@ -1,6 +1,11 @@
 <?php 
+    session_start();
+    if(isset($_SESSION['user'])){
+        header("Location: index.php");
+    }
     include("input-validation.php"); 
     include("register-process.php");
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -2,6 +2,7 @@
     session_start();
     if(isset($_SESSION['user'])){
         echo $_SESSION['user'][0];
+        $user_id = $_SESSION['user'][0];
         include('add-book-process.php');
     }else{
         header("Location: login.php");
@@ -29,7 +30,7 @@
 
         <main class="main-container">
             <div class="mobile-container addtolibrary-container">
-                <h1 class="header--big text--italize text--unbold">Add Book</h1>
+                <h1 class="header--big text--italize text--unbold">Add Book to Heap</h1>
                 <form method="post" class="form-container">
                     <div class="form-container--rows">
                         <!-- ISBN FIELD -->
@@ -94,7 +95,7 @@
                                 <?php }?>
                             </select>
                         </div>
-                    </div>                    
+                    </div>                  
                     <input type="submit" class="submit submit--dark submit--small" value="Submit" name="submit">
                 </form>
             </div>

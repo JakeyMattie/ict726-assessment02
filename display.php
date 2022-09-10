@@ -1,118 +1,167 @@
-<?php 
-    session_start();
-    if(isset($_SESSION['user'])){
-        if(isset($_GET['id']) || $_POST['id']){
-            echo $_SESSION['user'][0]; 
-        }else{
-            header("Location: search.php");
-        }
-    }else{
-        header("Location: login.php");
-    }
-?>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="CSS/style.css">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
-
-        <script src="" async defer></script>
-    </head>
-
-    <body class="flex-wrapper">
-        <header>
-            <?php include("nav.php"); ?>
-        </header>
-        <main class="main-container">
-            <?php 
-            if(isset($_GET['id']) || $_POST['proceed']){
-                include("db_connect.php");
+    <?php 
+        session_start();
+        if(isset($_SESSION['user'])){
+            if(isset($_GET['id']) || $_POST['id']){
                 if(isset($_GET['id'])){
-                    $isbn = mysqli_real_escape_string($db_connection,$_GET["id"]);
-                }else if($_POST['proceed']){
-                    $isbn = mysqli_real_escape_string($db_connection,$_POST["id"]);
-                }
-                $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name, publish_date FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
-                $result = mysqli_query($db_connection, $query);
-                while($row = mysqli_fetch_array($result)){
-                    $ISBN = $row['isbn'];
-                    $title = $row['title'];
-                    $author = $row['first_name'] . " " . $row['last_name'];
-                    $genre = $row['name'];
-                    $list_price = $row['list_price'];
-                    $publish_date = $row['publish_date'];
+                    $isbn = $_GET['id'];
+                }else{
+                    $isbn = $_POST['id'];
                 }
 
-                $user_id = $_SESSION['user'][0];
-                $check_heap = "SELECT * FROM heap WHERE isbn='$isbn' AND user_id='$user_id';";
-                $check_heap_result = mysqli_query($db_connection, $check_heap);
+                echo $_SESSION['user'][0];
+                include('add-to-bookcase-process.php'); 
+            }else{
+                header("Location: search.php");
+            }
+        }else{
+            header("Location: login.php");
+        }
 
+        if(isset($_POST['display-bookcase'])){
+            $bookcase_id = $_POST['display-bookcase'];
+            if($_POST['display-bookcase'] == "heap"){
+                $shelf = FALSE;
+            }else{
+                $shelf = TRUE;
+            }
+        }else{
+            $shelf = FALSE;
+        }
+    ?>
+    <!DOCTYPE html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title></title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="CSS/style.css">
 
-                $check_shelf = "SELECT * FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN bookcase on bookcase.bookcase_id = shelf.bookcase_id WHERE isbn='$isbn' AND user_id='$user_id';";
-                $check_shelf_result = mysqli_query($db_connection, $check_shelf);
-                
-                if(mysqli_num_rows($check_heap_result) == 1){
-                    $location = "Heap";
-                }
-                if(mysqli_num_rows($check_shelf_result) == 1){
-                    while($row = mysqli_fetch_array($check_shelf_result)){
-                        $location = "Bookcase: ". $row['bookcase_name'] . "<br> Shelf: " . $row['shelf_name'];
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+            <script async defer>
+            </script>
+        </head>
+
+        <body class="flex-wrapper">
+            <header>
+                <?php include("nav.php"); ?>
+            </header>
+            <main class="main-container">
+                <?php 
+                if(isset($_GET['id'])){
+                    include("db_connect.php");
+                    // if(isset($_GET['id'])){
+                        $isbn = mysqli_real_escape_string($db_connection,$_GET["id"]);
+                    // }else if($_POST['proceed']){
+                    //     $isbn = mysqli_real_escape_string($db_connection,$_POST["id"]);
+                    // }
+                    $query = "SELECT isbn, title, first_name, last_name, FORMAT(list_price,2) AS list_price, genre.name, publish_date FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE isbn = $isbn";
+                    $result = mysqli_query($db_connection, $query);
+                    while($row = mysqli_fetch_array($result)){
+                        $ISBN = $row['isbn'];
+                        $title = $row['title'];
+                        $author = $row['first_name'] . " " . $row['last_name'];
+                        $genre = $row['name'];
+                        $list_price = $row['list_price'];
+                        $publish_date = $row['publish_date'];
                     }
-                }
-            }           
-            ?>
-            <div class="mobile-container left-display">
-                <h1 class="left-display__header header--big text--unbold text--italize text--capitalize"><?php echo $title ?></h1>
-                <ul>
-                    <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
-                    <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
-                    <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
-                    <li class="left-display__output"><span class="left-display__output--title">List Price:</span> <?php echo $list_price;?></li>
-                    <li class="left-display__output"><span class="left-display__output--title">Publish Date:</span> <?php echo $publish_date;?></li>
-                    <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $location;?></li>
-                </ul>
 
-                <form action="display-process.php" method="post" class="form-container display-form">
-                    <select name="display-bookcase" class="select">
-                        <option>Bookcase #1</option>
-                        <option>Bookcase #2</option>
-                        <option>Bookcase #3</option>
-                    </select>
+                    $user_id = $_SESSION['user'][0];
+                    $check_heap = "SELECT * FROM heap WHERE isbn='$isbn' AND user_id='$user_id';";
+                    $check_heap_result = mysqli_query($db_connection, $check_heap);
 
-                    <select name="display-shelf" class="select">
-                        <option>Shelf #1</option>
-                        <option>Shelf #2</option>
-                        <option>Shelf #3</option>
-                    </select>
 
-                    <input type="submit" class="submit submit--dark submit--small" value="Add">
-                </form>
-            </div>
+                    $check_shelf = "SELECT * FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN bookcase on bookcase.bookcase_id = shelf.bookcase_id WHERE isbn='$isbn' AND user_id='$user_id'";
+                    $check_shelf_result = mysqli_query($db_connection, $check_shelf);
+                    if(mysqli_num_rows($check_heap_result) == 1){
+                        $location = "Heap";
+                    }
+                    if(mysqli_num_rows($check_shelf_result) == 1){
+                        while($row = mysqli_fetch_array($check_shelf_result)){
+                            $location = "Bookcase: ". $row['bookcase_name'] . "<br> Shelf: " . $row['shelf_name'];
+                            $shelf_id = $row['shelf_id'];
+                        }
+                    }
+                }           
+                ?>
+                <div class="mobile-container left-display">
+                    <h1 class="left-display__header header--big text--unbold text--italize text--capitalize"><?php echo $title ?></h1>
+                    <ul>
+                        <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
+                        <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
+                        <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
+                        <li class="left-display__output"><span class="left-display__output--title">List Price:</span> <?php echo $list_price;?></li>
+                        <li class="left-display__output"><span class="left-display__output--title">Publish Date:</span> <?php echo $publish_date;?></li>
+                        <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $location;?></li>
+                    </ul>
 
-            <div class="right-display">
-                <div class="display-blue01"></div>
-                <img src="Photos/Book.jpg" class="display-photo">
-                <div class="display-border--purple"></div>
-                <div class="display-border--blue"></div>
-                <div class="display-purple"></div>
-                <div class="display-blue02"></div>
-            </div>
-        </main>
-        
-        <footer>
-            <p>Copyright © 2022 <span class="footer--big-screen">| Developed by Jacob Antonio, Jake Calub, and Peter de Vera</span></p>
-        </footer>
-    </body>
-</html>
+                    <form action="display.php?id=<?php echo $isbn; ?>" method="post" class="form-container display-form">
+                        
+                        <?php 
+                            $get_bookcases = "SELECT bookcase_id, bookcase_name FROM bookcase WHERE user_id='$user_id'";
+                            $get_bookcases_result = mysqli_query($db_connection, $get_bookcases);
+                            if(mysqli_num_rows($get_bookcases_result) == 0){
+                                echo "<h2>No bookcase yet.</h2>";
+                            }else{ ?>
+                                <select onchange="this.form.submit()" id="display-bookcase" class="text--capitalize" name="display-bookcase" class="select" >
+                                    <option disabled selected value>Select Bookcase</option>
+                                <?php
+                                while($row = mysqli_fetch_array($get_bookcases_result)){ ?>
+                                    <option value="<?php echo $row['bookcase_id'];?>" <?php echo isset($_POST['display-bookcase']) && $_POST['display-bookcase'] == $row['bookcase_id'] ? 'selected' : '';?>> 
+                                    <?php echo $row['bookcase_name']; ?> </option>
+                                <?php } ?>
+                                <option value="heap" <?php echo isset($_POST['display-bookcase']) && $_POST['display-bookcase'] == 'heap' ? 'selected' : ''; ?>> Heap </option>
+                                </select>
+                                <?php
+                                if($shelf){
+                                    $get_shelf = "SELECT shelf_id, shelf_name FROM shelf JOIN bookcase ON bookcase.bookcase_id = shelf.bookcase_id WHERE bookcase.user_id='$user_id' AND bookcase.bookcase_id='$bookcase_id'";
+                                    $get_shelf_result = mysqli_query($db_connection, $get_shelf);
+                                        if(mysqli_num_rows($get_shelf_result) == 0){
+                                            echo "<h2> No shelf</h2>";
+                                        }else{
+                                ?>
+                                    <?php echo isset($shelf_error) ? "<span class='error-message'>" . $shelf_error . "</span>" : "";?>
+                                    <select name="display-shelf" class="select">
+                                        <option disabled selected value>Select Shelf</option>
+                                        <?php while($row = mysqli_fetch_array($get_shelf_result)){?>
+                                        <option value="<?php echo $row['shelf_id'];?>" value="<?php echo $row['bookcase_id'];?>"><?php echo $row['shelf_name']; ?>
+                                        </option>
+                                <?php }
+                                    }
+                                }
+                            }
+                        ?>
+                        </select>
+                        <input type="hidden" name="book-id" value="<?php echo $isbn;?>">
+                        <input type="hidden" name="shelf-id" value="<?php echo $shelf_id;?>">
+                        <input type="hidden" name="book-location" value="<?php echo $location; ?>">
+                        <div class="double-button-container">
+                            <input type="submit" class="submit submit--dark " value="Move" name="move">
+                            <input type="submit" class="submit submit--remove " value="Delete" name="remove">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="right-display">
+                    <div class="display-blue01"></div>
+                    <img src="Photos/Book.jpg" class="display-photo">
+                    <div class="display-border--purple"></div>
+                    <div class="display-border--blue"></div>
+                    <div class="display-purple"></div>
+                    <div class="display-blue02"></div>
+                </div>
+            </main>
+            
+            <footer>
+                <p>Copyright © 2022 <span class="footer--big-screen">| Developed by Jacob Antonio, Jake Calub, and Peter de Vera</span></p>
+            </footer>
+        </body>
+    </html>

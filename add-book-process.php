@@ -1,5 +1,4 @@
 <?php
-
     if(isset($_POST['submit'])){
         include("db_connect.php");
         include("input-validation.php");
@@ -46,7 +45,7 @@
             $errors++;
         }else{
             $title = mysqli_real_escape_string($db_connection, $_POST['book-title']);
-            if(input_check($title, 'normal')){
+            if(input_check($title, 'title')){
                 $title_error = "Only letters and numbers are allowed!";
                 $errors++;
             }else{
@@ -140,8 +139,7 @@
                 //         break;
                 // }
             }
-
-            $check_isbn = "SELECT isbn FROM book where isbn='$isbn'";
+            $check_isbn = "SELECT isbn FROM book where isbn='$isbn' AND user_id='$user_id'";
             $check_isbn_result = mysqli_query($db_connection, $check_isbn);
             if(mysqli_num_rows($check_isbn_result) == 1){
                 $isbn_error = "The ISBN: " . $isbn . " already exists!";
@@ -151,13 +149,16 @@
                 while($row = mysqli_fetch_array($check_author_result)){
                     $author_id = $row['author_id'];
                 }
-                $add_book = "INSERT INTO book (isbn, title, publish_date, genre_id, list_price, author_id) VALUES ('$isbn','$title','$publish_date','$genre','$list_price','$author_id')";
+                $add_book = "INSERT INTO book (isbn, title, publish_date, genre_id, list_price, author_id, user_id) VALUES ('$isbn','$title','$publish_date','$genre','$list_price','$author_id', '$user_id')";
                 $add_book_result = mysqli_query($db_connection, $add_book);
                 $err_no = $add_book_result.mysqli_errno($db_connection);
                 $err_message = $add_book_result.mysqli_error($db_connection);
-    
+
+
+                $add_to_heap = "INSERT INTO heap (isbn, user_id)VALUES('$isbn','$user_id')";
+                $add_to_heap_result = mysqli_query($db_connection, $add_to_heap);
                 //check for error
-                switch ($err_no){                 
+                switch ($err_no){
                     case 10:
                         header("Location: display.php?id=" . $isbn);
                         break;
