@@ -59,11 +59,11 @@
                         $_SESSION['user'] = $user;
                         header("Location: index.php");            
                 }else{
-                    $password_error = "Incorrect password.";
+                    $password_error = "Incorrect username and/or password.";
                     $errors++;
                 }
             }else{
-                    $username_error = "User not found.";
+                    $username_error = "Incorrect username and/or password.";
                     $errors++;
             }
         }

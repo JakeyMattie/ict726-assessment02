@@ -2,7 +2,7 @@
     session_start();
     if(isset($_SESSION['user'])){
         echo $_SESSION['user'][0]; 
-        include("add-shelf-process.php");
+        include("shelf-process.php");
     }else{
     }
 

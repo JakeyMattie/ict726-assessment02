@@ -7,9 +7,8 @@
                 }else{
                     $isbn = $_POST['id'];
                 }
-
                 echo $_SESSION['user'][0];
-                include('add-to-bookcase-process.php'); 
+                include('book-process.php'); 
             }else{
                 header("Location: search.php");
             }
@@ -45,9 +44,11 @@
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+            <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
-            <script async defer>
-            </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
         </head>
 
         <body class="flex-wrapper">
@@ -97,20 +98,20 @@
                     <ul>
                         <li class="left-display__output"><span class="left-display__output--title">Author</span> <?php echo $author; ?></li>
                         <li class="left-display__output"><span class="left-display__output--title">Genre:</span> <?php echo $genre;?></li>
-                        <li class="left-display__output"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
+                        <li class="left-display__output" id="isbn"><span class="left-display__output--title">ISBN:</span> <?php echo $isbn;?></li>
                         <li class="left-display__output"><span class="left-display__output--title">List Price:</span> <?php echo $list_price;?></li>
                         <li class="left-display__output"><span class="left-display__output--title">Publish Date:</span> <?php echo $publish_date;?></li>
                         <li class="left-display__output"><span class="left-display__output--title">Location:</span> <?php echo $location;?></li>
                     </ul>
 
-                    <form action="display.php?id=<?php echo $isbn; ?>" method="post" class="form-container display-form">
-                        
+                    <form action="display.php?id=<?php echo $isbn; ?>" method="post" class="form-container display-form" id="book-form">
                         <?php 
                             $get_bookcases = "SELECT bookcase_id, bookcase_name FROM bookcase WHERE user_id='$user_id'";
                             $get_bookcases_result = mysqli_query($db_connection, $get_bookcases);
                             if(mysqli_num_rows($get_bookcases_result) == 0){
                                 echo "<h2>No bookcase yet.</h2>";
                             }else{ ?>
+                                <?php echo isset($bc_error) ? "<span class='error-message'>" . $bc_error . "</span>" : "";?>
                                 <select onchange="this.form.submit()" id="display-bookcase" class="text--capitalize" name="display-bookcase" class="select" >
                                     <option disabled selected value>Select Bookcase</option>
                                 <?php
@@ -145,9 +146,10 @@
                         <input type="hidden" name="book-location" value="<?php echo $location; ?>">
                         <div class="double-button-container">
                             <input type="submit" class="submit submit--dark " value="Move" name="move">
-                            <input type="submit" class="submit submit--remove " value="Delete" name="remove">
+                            <input type="submit" id="del-btn" class="submit submit--remove" value="delete" name="remove">
                         </div>
                     </form>
+
                 </div>
 
                 <div class="right-display">
@@ -163,5 +165,53 @@
             <footer>
                 <p>Copyright © 2022 <span class="footer--big-screen">| Developed by Jacob Antonio, Jake Calub, and Peter de Vera</span></p>
             </footer>
+            <script>
+                $('#del-btn').on('click', function(e){
+                    e.preventDefault();
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                        //document.getElementById("book-form").action = "add-to-bookcase-process.php";
+                        // document.getElementById("book-form").attr('action', "add-to-bookcase-process.php")
+                        document.getElementById("book-form").submit();
+                        }
+                    });
+                });
+                
+                // function executeConfirmation(){
+                //     event.preventDefault();
+                //     Swal.fire({
+                //     title: 'Are you sure?',
+                //     text: "You won't be able to revert this!",
+                //     icon: 'warning',
+                //     showCancelButton: true,
+                //     confirmButtonColor: '#3085d6',
+                //     cancelButtonColor: '#d33',
+                //     confirmButtonText: 'Yes, delete it!'
+                //     }).then((result) => {
+                //         if (result.isConfirmed) {
+                //             Swal.fire(
+                //             'Deleted!',
+                //             'Your file has been deleted.',
+                //             'success'
+                //             )
+                //         document.getElementById("book-form").action = "add-to-bookcase-process.php";
+                //         document.getElementById("book-form").submit();
+                //         }
+                //     });
+                // }        
+            </script>
         </body>
     </html>

@@ -16,7 +16,7 @@
                     $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE  LOWER(title) LIKE LOWER('%$keyword%') AND user_id='$user_id'";
                     break;
                 case "author":
-                    $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE  LOWER(first_name) LIKE '%$keyword%' OR LOWER(last_name) LIKE LOWER('%$keyword%') AND user_id='$user_id'";
+                    $query = "SELECT isbn, title, first_name, last_name, list_price, genre.name FROM book JOIN author ON book.author_id = author.author_id JOIN genre ON book.genre_id = genre.genre_id WHERE  (LOWER(first_name) LIKE '%$keyword%' OR LOWER(last_name) LIKE LOWER('%$keyword%')) AND user_id='$user_id'";
                     break;
                 default:
                     break;
@@ -24,9 +24,4 @@
             $result = mysqli_query($db_connection, $query);
         }
     }
-
-    if(isset($_POST['add'])){
-        echo "chosen book is " . $_POST["book_id"];
-    }
-
 ?>
