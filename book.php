@@ -3,9 +3,11 @@
     if(isset($_SESSION['user'])){
         echo $_SESSION['user'][0];
         $user_id = $_SESSION['user'][0];
-        if(!isset($_POST['proceed']) && !isset($_GET['id'])){
+        if(!isset($_POST['proceed']) && !isset($_GET['id']) && !isset($_POST['remove']) && !isset($_POST['confirm'])){
             header('Location: search.php');
         }
+    }else{
+        header("Location: login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -70,7 +72,7 @@
                                         <td class="text--capitalize"><?php echo $row['title']; ?></td>
                                     </tr>
                                 <?php } ?>
-                                </table>
+                            </table>
                             <!-- </select> -->
                             <!-- <div class="double-button-container">
                                 <input type="submit" class="submit submit--dark" value="Proceed" name='proceed'>
@@ -78,6 +80,83 @@
                             </div> -->
                                 </form>
                         <?php }
+                    }
+                ?>
+
+                <?php
+                    if(isset($_POST['remove'])){
+                        include("db_connect.php");
+                        $shelf_id = $_POST['shelf'];
+                        $get_shelf = "SELECT shelf_name FROM shelf WHERE shelf_id ='$shelf_id'";
+                        $result = mysqli_query($db_connection, $get_shelf);
+                        while($row = mysqli_fetch_array($result)){
+                            $shelf_name = $row['shelf_name'];
+                        }
+                    ?>
+                    <h1>Are you sure you want to delete "<span class="text--capitalize"><?php echo $shelf_name; ?>" </span>?</h1>
+                    <?php
+                        $get_bookcase_name = "SELECT bookcase_name FROM shelf JOIN bookcase ON bookcase.bookcase_id = shelf.bookcase_id WHERE shelf_id = '$shelf_id'";
+                        $get_bookcase_name_result = mysqli_query($db_connection, $get_bookcase_name);
+                        while($row = mysqli_fetch_array($get_bookcase_name_result)){
+                            $bc_name = $row['bookcase_name'];
+                        }
+
+                        $get_books = "SELECT book.isbn, title FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON shelf_book.isbn = book.isbn WHERE shelf_book.shelf_id = '$shelf_id'";
+                        $result = mysqli_query($db_connection, $get_books);
+                        if(mysqli_num_rows($result) == 0){
+                            echo "<h2 class='error-message'>Shelf will be removed from bookcase <span class='text--capitalize'>" . $bc_name . "</span> !</h2>";
+                        }else{
+                            echo "<h2 class='error-message'>Shelf will be removed from bookcase <span class='text--capitalize'>" . $bc_name . "</span>!</h2>";
+                    ?>
+                    <table> 
+                        <tr>
+                                <th>ISBN</th>
+                                <th>Title</th>
+                        </tr>
+                        <?php                         
+                        while($row = mysqli_fetch_array($result)){ ?>
+                            <tr>
+                                <td><?php echo $row['isbn']; ?></td>
+                                <td class="text--capitalize"><?php echo $row['title']; ?></td>
+                            </tr>
+                        <?php } } ?>
+                    </table>
+                    <form action="book.php" method="post" class="form-container bookcase-add-container">
+                        <div class="double-button-container">
+                            <input type="hidden" name="shelf" value="<?php echo $shelf_id; ?>">                    
+                            <input type="submit" class="submit submit--remove" value="Delete" name="confirm">
+                            <input type="submit" class="submit submit--dark" value="Cancel" name="proceed">
+                        </div>
+                    </form>
+                <?php } //if set remove closing tag
+                    if(isset($_POST['confirm'])){
+                        include("db_connect.php");
+                        $shelf_id = $_POST['shelf'];
+                        $get_shelf = "SELECT shelf_name FROM shelf WHERE shelf_id ='$shelf_id'";
+                        $result = mysqli_query($db_connection, $get_shelf);
+                        while($row = mysqli_fetch_array($result)){
+                            $shelf_name = $row['shelf_name'];
+                        }
+                        $query = "SELECT isbn FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id WHERE shelf_book.shelf_id = '$shelf_id'";
+                        $result = mysqli_query($db_connection, $query);
+                        if(mysqli_num_rows($result) > 0){
+                            // $i = 0;
+                            while($row = mysqli_fetch_array($result)){
+                                //echo $row['isbn'] . "<br>";
+                                $isbn = $row['isbn'];
+                                $add_to_heap = "INSERT INTO heap (user_id, isbn) VALUES ('$user_id','$isbn')";
+                                $add_to_heap_result = mysqli_query($db_connection, $add_to_heap);
+                                //echo $add_to_heap . "<br>";
+                            }
+                        }
+                        // foreach($books_array as $isbn){                        
+                        //     //echo $add_to_heap . "<br>";
+                        // }
+                        $remove_shelf = "DELETE FROM shelf WHERE shelf_id = '$shelf_id'";
+                        $remove_shelf_result = mysqli_query($db_connection, $remove_shelf);
+                        //echo $remove_shelf;
+
+                        echo "<h1 class='success-message'> Shelf " . $shelf_name . " was successfully deleted!</h1>";
                     }
                 ?>
                 <!-- <h1 class="header--big text--unbold text--italize">Books</h1>

@@ -1,8 +1,9 @@
 <?php
     include("db_connect.php");
     include("input-validation.php");
-    $errors = 0;
+
     if(isset($_POST['add'])){
+        $errors = 0;
         if(empty($_POST['shelf_name'])){
             $shelf_error = "Shelf name cannot be blank!";
             $errors = 1;
@@ -44,4 +45,6 @@
             }
         }
     }
+
+
 ?>

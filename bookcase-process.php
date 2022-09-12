@@ -1,7 +1,12 @@
 <?php
     include("db_connect.php");
     include("input-validation.php");
-    $user_id = $_SESSION['user'][0];
+    if(isset($_SESSION['user'])){
+        $user_id = $_SESSION['user'][0];
+    }else{
+        header("Location: login.php");
+    }
+
     $errors = 0;
     if(isset($_POST['add'])){
         if(empty($_POST['bookcase_name'])){

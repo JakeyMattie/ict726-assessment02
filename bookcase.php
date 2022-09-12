@@ -46,7 +46,7 @@
                     if(mysqli_num_rows($result) == 0){ ?>
                         <h2> You don't have any bookcases. </h2>
                     <?php }else{ ?>
-                        <?php echo isset($success) ? "<span>".$success."</span>" : "" ?>
+                        <?php echo isset($success) ? "<span class='success-message'>".$success."</span>" : "" ?>
                         <form action="shelf.php" method="post" class="form-container bookcase-form-container">
                             <select name="bookcase" class="select">
                                 <?php while($row = mysqli_fetch_array($result)){ ?>             

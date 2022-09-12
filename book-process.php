@@ -1,9 +1,6 @@
 <?php
     if(isset($_SESSION['user'])){
         $user_id=$_SESSION['user'][0];
-    }else{
-        echo "no session";
-        //header("Location: login.php");
     }
 
     if(isset($_POST['move'])){
@@ -42,24 +39,4 @@
         }
     }
 
-    if(isset($_POST['remove'])){
-        include("db_connect.php");
-        $isbn = mysqli_real_escape_string($db_connection, $_POST['book-id']);
-        $shelf_id = mysqli_real_escape_string($db_connection, $_POST['shelf-id']);
-        // echo $isbn . "..." . $shelf_id . "..." . $_POST['book-location'];
-        header("Location: index.php");
-        if($_POST['book-location'] == "Heap"){
-            $remove_from_heap = "DELETE FROM heap WHERE user_id='$user_id' AND isbn='$isbn'";
-            $remove_from_heap_result = mysqli_query($db_connection, $remove_from_heap);
-            $remove_from_book = "DELETE FROM book WHERE user_id='$user_id' AND isbn='$isbn'";
-            $remove_from_book_result = mysqli_query($db_connection, $remove_from_book);
-            header("Location: search.php");
-        }else{
-            $remove_from_book = "DELETE FROM book WHERE user_id='$user_id' AND isbn='$isbn'";
-            $remove_from_book_result = mysqli_query($db_connection, $remove_from_book);
-            $remove_from_shelf = "DELETE FROM shelf_book WHERE user_id='$user_id' AND isbn='$isbn'";
-            $remove_from_shelf_result = mysqli_query($db_connection, $remove_from_shelf);
-            header("Location: book.php?id=" . $shelf_id);
-        }
-    }
 ?>

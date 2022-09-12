@@ -2,6 +2,7 @@
     session_start();
     if(isset($_SESSION['user'])){
         echo $_SESSION['user'][0]; 
+        $user_id = $_SESSION['user'][0];
         include("shelf-process.php");
     }else{
     }
@@ -55,8 +56,73 @@
 
         <main class="main-container">
             <div class="mobile-container left-shelf">
+                <?php
+                if(isset($_POST['confirm_delete_bc'])){
+                    $bc_id = $_POST['bookcase-id'];
+                    $bc_name = $_POST['bookcase-name'];
+                    $get_books = "SELECT book.isbn, shelf_name, book.title FROM shelf JOIN shelf_book ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON book.ISBN = shelf_book.isbn WHERE bookcase_id = '$bc_id' AND book.user_id = '$user_id'";
+                    $get_books_result = mysqli_query($db_connection, $get_books);
+                    if(mysqli_num_rows($get_books_result) > 0){
+                        while($row = mysqli_fetch_array($get_books_result)){
+                            $isbn = $row['isbn'];
+                            $add_to_heap = "INSERT INTO heap (user_id, isbn) VALUES ('$user_id','$isbn')";
+                            $add_to_heap_result = mysqli_query($db_connection, $add_to_heap);
+                        }
+                    }                   
+                    $remove_bc = "DELETE FROM bookcase WHERE bookcase_id = '$bc_id'";
+                    $remove_bc_result = mysqli_query($db_connection, $remove_bc);
+                    echo "<h1 class='success-message'> Bookcase " . $bc_name . " was successfully deleted!</h1>";
+                }else if(isset($_POST['remove'])){
+                    include("db_connect.php");
+                    $bc_id = $_POST['bookcase'];
+                    $get_bc_name = "SELECT bookcase_name FROM bookcase WHERE bookcase_id = '$bc_id'";
+                    $bc_result = mysqli_query($db_connection, $get_bc_name);
+                    while($row = mysqli_fetch_array($bc_result)){
+                        $bc_name = $row['bookcase_name'];
+                    }
+                    $get_books = "SELECT shelf_name, book.title FROM shelf JOIN shelf_book ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON book.ISBN = shelf_book.isbn WHERE bookcase_id = '$bc_id' AND book.user_id = '$user_id'";
+                    //select shelf_name, book.title FROM shelf JOIN shelf_book ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON book.ISBN = shelf_book.isbn WHERE bookcase_id = 32;
+                    $get_books_result = mysqli_query($db_connection, $get_books);?>
+                        <form action="shelf.php" method="post" class="form-container bookcase-add-container">
+                            <h1 class="error-message"> Are you sure you want to delete the bookcase <span class='text--capitalize'><?php echo $bc_name; ?></span> ?</h1>
+                            <?php
+                                //$get_shelves = "SELECT shelf_name FROM shelf WHERE shelf_id = '$shelf_id'";
+                                if(mysqli_num_rows($get_books_result) > 0){
+                                    echo "<h2 class='error-message'>Removing a bookcase will remove all shelves and move these books to the heap.</h2>";
+                                    while($row = mysqli_fetch_array($get_books_result)){
+                                        echo "<p>" . $row['title'] . "</p>";
+                                    }
+                                    //print books under shelves
+                                    // $shelf_row  = mysqli_fetch_array($get_books_result);
+                                    // $title_row = mysqli_fetch_array($get_books_result);
+                                    // $i = 0;
+                                    // $j = 0;
+                                    // while($i <= count($shelf_row) - 1){
+                                    //     $shelf_name = $shelf_row['shelf_name'];
+                                    //     echo "<h2>" . $shelf_name . "</h2>";
+                                    //     while($j < count($title_row) ){
+                                    //         if($title_row['shelf_name'] == $shelf_name){
+                                    //           echo "<p>" . $title_row['title'] . "</p>";
+        
+                                    //         }
+                                    //         $j++;  
+                                    //     }
+                                    //     $i++;
+                                    // }
+                                }else{
+                                    echo "<p>Bookcase is empty.</p>";
+                                }
+                            ?>
+                            <div class="double-button-container">
+                                <input type="hidden" name="bookcase-id" value="<?php echo $bc_id; ?>">
+                                <input type="hidden" name="bookcase-name" value="<?php echo $bc_name; ?>">                         
+                                <input type="submit" class="submit submit--remove" value="Delete" name="confirm_delete_bc">
+                                <input type="submit" class="submit submit--dark" value="Cancel" name="proceed">
+                            </div>
+                        </form>
+                <?php }else{ ?>
                 <h1 class="header--big text--unbold text--italize text--capitalize"><?php echo $bookcase_name?></h1>
-                <?php echo isset($success) ? $success : ""; ?>
+                <?php echo isset($success) ? "<span class='success-message'" . $success . "</span>" : ""; ?>
                 <?php 
                     $user_id = $_SESSION['user'][0];
                     $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
@@ -83,8 +149,8 @@
                     <input type="hidden" name="bookcase_id" value="<?php echo $bookcase; ?>">
                     <input type="submit" class="submit submit--dark submit--small" value="Add" name="add">
                 </form>
+                <?php } ?>
             </div>
-
             <div class="right-shelf background-image"></div>
         </main>
         
