@@ -1,6 +1,16 @@
 <?php 
     include("input-validation.php");  
-    include("login-process.php");    
+    include("login-process.php"); 
+    
+	//session_start();
+	//check if can login again
+	if(isset($_SESSION['attempt_again'])){
+		$now = time();
+		if($now >= $_SESSION['attempt_again']){
+			unset($_SESSION['attempt']);
+			unset($_SESSION['attempt_again']);
+		}
+	}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -29,10 +39,11 @@
         <main class="main-container">
             <div class="left-login-container background-image"></div>
             <div class="mobile-container right-login-container">
-                <!-- <span class="prompt"><?php echo isset($_GET['success']) ? "<spanRegistration successful!" : "" ?></span> -->
                 <h1 class="right-login__header header--big text--unbold">Login</h1>
                 <?php echo isset($_GET['success']) ? "<p class='success-message'> Registration successful!</p>": ""?>
+                <?php echo isset($_SESSION['error']) ? "<span class='error-message'>" . $_SESSION['error'] . "</span>": "" ?>
                 <form method="POST" class="form-container login-form-container--gap">
+                    <?php echo isset($login_error) ? "<span class='error-message'>" . $login_error . "</span>": ""?>
                     <!-- USERNAME -->
                     <?php echo isset($username_error) ? "<span class='error-message'>" . $username_error . "</span>": ""?>
                     <input type="text" class="form__input login-form__input" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">

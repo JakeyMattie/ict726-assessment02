@@ -5,7 +5,7 @@
                 return(!preg_match("/^[a-zA-Z-'\\\\ ]*$/", $string));
                 break;
             case "title":
-                return(!preg_match("/^[a-zA-Z0-9-':\\\\ ]*$/", $string));
+                return(!preg_match("/^[a-zA-Z0-9-':.?,\\\\ ]*$/", $string));
                 break;
             case "email":
                 return(!filter_var($string, FILTER_VALIDATE_EMAIL));
