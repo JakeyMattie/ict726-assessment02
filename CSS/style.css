@@ -45,6 +45,14 @@ h1 {
     text-transform: capitalize;
 }
 
+.error-message{
+    color: var(--red);
+}
+
+.success-message{
+    color: var(--second);
+}
+
 /* ----- Object Formatting */
 
 .submit {

@@ -14,7 +14,7 @@
         }else{
             $first_name = mysqli_real_escape_string($db_connection, $_POST['firstname']);
             if(input_check($first_name, 'text')){
-                $fn_error = "Only letters and white space allowed";
+                $fn_error = "Only letters and white space allowed!";
                 $errors++;
             }else{
                 unset($fn_error);
@@ -28,7 +28,7 @@
         }else{
             $last_name = mysqli_real_escape_string($db_connection, $_POST['lastname']);
             if(input_check($last_name, 'text')){
-                $ln_error = "Only letters and white space allowed";
+                $ln_error = "Only letters and white space allowed!";
                 $errors++;
             }else{
                 unset($ln_error);
@@ -56,7 +56,7 @@
         }else{
             $password = mysqli_real_escape_string($db_connection, $_POST['password']);
             if(input_check($password, 'password')){
-                $password_error = "Password must be at least 8 characters long, contain one lowercase and uppercase letter, one number and one special character.";
+                $password_error = "Password must be at least 8 characters long, contain one lowercase and uppercase letter, one number and one special character!";
                 $errors++;
             }else{
                 $hash = sha1($password);
