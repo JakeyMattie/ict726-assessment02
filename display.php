@@ -5,7 +5,7 @@
                 if(isset($_GET['id'])){
                     $isbn = $_GET['id'];
                 }
-                echo $_SESSION['user'][0];
+                // echo $_SESSION['user'][0];
                 include('book-process.php'); 
             }else{
                 echo "here";

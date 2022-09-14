@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if(isset($_SESSION['user'])){
-        echo $_SESSION['user'][0]; 
+        //echo $_SESSION['user'][0]; 
         $user_id = $_SESSION['user'][0];
         include("shelf-process.php");
     }else{

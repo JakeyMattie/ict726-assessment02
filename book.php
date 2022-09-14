@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if(isset($_SESSION['user'])){
-        echo $_SESSION['user'][0];
+        // echo $_SESSION['user'][0];
         $user_id = $_SESSION['user'][0];
         if(!isset($_POST['proceed']) && !isset($_GET['id']) && !isset($_POST['remove']) && !isset($_POST['confirm'])){
             header('Location: search.php');
