@@ -3,6 +3,8 @@
     session_start();
     session_unset();
     session_destroy();
-    mysqli_close($db_connection);
+    if ($db_connection) {
+        mysqli_close($db_connection);
+    }
     header("Location: login.php");
 ?>
