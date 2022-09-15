@@ -44,11 +44,11 @@
                 <?php echo isset($_SESSION['error']) ? "<span class='error-message'>" . $_SESSION['error'] . "</span>": "" ?>
                 <form method="POST" class="form-container login-form-container--gap">
                     <?php echo isset($login_error) ? "<span class='error-message'>" . $login_error . "</span>": ""?>
-                    <!-- USERNAME -->
+                    <!-- USERNAME FIELD -->
                     <?php echo isset($username_error) ? "<span class='error-message'>" . $username_error . "</span>": ""?>
                     <input type="text" class="form__input login-form__input" name="username" placeholder="Username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>">
                     
-                    <!-- PASSWORD -->
+                    <!-- PASSWORD FIELD-->
                     <?php echo isset($password_error) ? "<span class='error-message'>" . $password_error . "</span>": ""?>
                     <input type="password" class="form__input login-form__input" name="password" placeholder="Password" required>
                     <input type="submit" class="submit submit--light submit--small" value="Sign In" name="submit" required>
