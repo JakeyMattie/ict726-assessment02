@@ -51,9 +51,10 @@
                     unset($_SESSION['error']);            
                 }else{
                     $_SESSION['attempt'] -= 1;
-                    $login_error = "Incorrect username and/or password. <br> Number of attempts left: " . $_SESSION['attempt'];
+                    $counter_display = $_SESSION['attempt'] + 1;
+                    $login_error = "Incorrect username and/or password. <br> Number of attempts left: " . $counter_display;
                     if($_SESSION['attempt'] == 0){
-                        $_SESSION['attempt_again'] = time() + (.5*60);
+                        $_SESSION['attempt_again'] = time() + (5);
                         //note 5*60 = 5mins, 60*60 = 1hr, to set to 2hrs change it to 2*60*60
                     }
                     $errors++;

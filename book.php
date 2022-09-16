@@ -95,13 +95,13 @@
                     ?>
                     <h1>Are you sure you want to delete "<span class="text--capitalize"><?php echo $shelf_name; ?>" </span>?</h1>
                     <?php
-                        $get_bookcase_name = "SELECT bookcase_name FROM shelf JOIN bookcase ON bookcase.bookcase_id = shelf.bookcase_id WHERE shelf_id = '$shelf_id'";
+                        $get_bookcase_name = "SELECT bookcase_name FROM shelf JOIN bookcase ON bookcase.bookcase_id = shelf.bookcase_id WHERE shelf_id = '$shelf_id' ";
                         $get_bookcase_name_result = mysqli_query($db_connection, $get_bookcase_name);
                         while($row = mysqli_fetch_array($get_bookcase_name_result)){
                             $bc_name = $row['bookcase_name'];
                         }
 
-                        $get_books = "SELECT book.isbn, title FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON shelf_book.isbn = book.isbn WHERE shelf_book.shelf_id = '$shelf_id'";
+                        $get_books = "SELECT book.isbn, title FROM shelf_book JOIN shelf ON shelf.shelf_id = shelf_book.shelf_id JOIN book ON shelf_book.isbn = book.isbn WHERE shelf_book.shelf_id = '$shelf_id' AND book.user_id = '$user_id'";
                         $result = mysqli_query($db_connection, $get_books);
                         if(mysqli_num_rows($result) == 0){
                             echo "<h2 class='error-message'>Shelf will be removed from bookcase <span class='text--capitalize'>" . $bc_name . "</span> !</h2>";

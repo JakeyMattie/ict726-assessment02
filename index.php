@@ -44,7 +44,7 @@
                  <?php
                     include("db_connect.php");
                     $user_id = $_SESSION['user'][0];
-                    $query = "SELECT bookcase_name FROM bookcase JOIN user ON bookcase.user_id = user.user_id WHERE bookcase.user_id='$user_id'";
+                    $query = "SELECT bookcase_id, bookcase_name FROM bookcase JOIN user ON bookcase.user_id = user.user_id WHERE bookcase.user_id='$user_id'";
                     $result = mysqli_query($db_connection, $query);
                     echo "<div class='mobile-container search-result'>";
                     if(mysqli_num_rows($result) == 0){ ?>
@@ -52,7 +52,7 @@
                     <?php
                         }else{
                             while($row = mysqli_fetch_array($result)){?>
-                                <p class="text--capitalize"><?php echo $row[0]; ?></p>
+                                <a class="text--capitalize" href="shelf.php?id=<?php echo $row['bookcase_id'];?>"><?php echo $row['bookcase_name']; ?></a>
                     <?php        }
                         }
                     echo "</div>"
