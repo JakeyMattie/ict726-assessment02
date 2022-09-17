@@ -53,7 +53,7 @@
                 <?php 
                 if(isset($_GET['id'])){
                     include("db_connect.php");
-                    // if(isset($_GET['id'])){
+                    // if(isset($_GET['id'])){ 
                     $isbn = mysqli_real_escape_string($db_connection,$_GET["id"]);
                     // }else if($_POST['proceed']){
                     //     $isbn = mysqli_real_escape_string($db_connection,$_POST["id"]);
