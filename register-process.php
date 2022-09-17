@@ -101,7 +101,7 @@
                         break;
                     }                    
                 case 10:
-                    $checkUser = "SELECT * FROM USER WHERE username='$username' AND password='$hash'";
+                    $checkUser = "SELECT * FROM user WHERE username='$username' AND password='$hash'";
                     $result = mysqli_query($db_connection, $checkUser);
                     if(mysqli_num_rows($result) == 1){
                         $user = mysqli_fetch_array($result);
