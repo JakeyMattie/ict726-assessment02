@@ -57,6 +57,14 @@
                         }
                     echo "</div>"
                     ?>
+                <!-- Shortcut buttons  -->
+                <div>
+                    <input type="submit" 
+                        class="submit submit--dark" 
+                        value="Add New Bookcases" 
+                        name="addNewBookcases"
+                        onclick="location.href = '/dashboard/bookcase.php'">
+                   
                  <!-- <p class="index-content__desc">Lorem ipsum something something subheading dolor sit amet.</p> -->
              </div>
         </main>
