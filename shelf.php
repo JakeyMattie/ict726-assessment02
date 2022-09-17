@@ -7,10 +7,14 @@
     }else{
     }
 
-    if(isset($_POST['proceed'])){
+    if(isset($_POST['proceed']) || isset($_GET['id'])){
         //establish db connection
         include("db_connect.php");
-        $bookcase = mysqli_real_escape_string($db_connection,$_POST['bookcase']);
+        if(isset($_POST['proceed'])){
+            $bookcase = mysqli_real_escape_string($db_connection,$_POST['bookcase']);
+        }else{
+            $bookcase = mysqli_real_escape_string($db_connection,$_GET['id']);
+        }
         $query = "SELECT bookcase_id, bookcase_name FROM bookcase WHERE bookcase_id = '$bookcase';";
         $result = mysqli_query($db_connection, $query);
         while($row = mysqli_fetch_array($result)){
@@ -26,10 +30,6 @@
 
     if(!isset($_POST['bookcase']) && !isset($_SESSION['bookcase'])){
         header("Location: index.php");
-    }
-
-    if(isset($_GET['id'])){
-        echo "<br>" .$_GET['id'];
     }
 ?>
 <!DOCTYPE html>
@@ -57,6 +57,9 @@
         <main class="main-container">
             <div class="mobile-container left-shelf">
                 <?php
+                if(isset($_POST['back_to_book'])){
+                    header("Location: bookcase.php");
+                }
                 if(isset($_POST['confirm_delete_bc'])){
                     $bc_id = $_POST['bookcase-id'];
                     $bc_name = $_POST['bookcase-name'];
@@ -117,12 +120,12 @@
                                 <input type="hidden" name="bookcase-id" value="<?php echo $bc_id; ?>">
                                 <input type="hidden" name="bookcase-name" value="<?php echo $bc_name; ?>">                         
                                 <input type="submit" class="submit submit--remove" value="Delete" name="confirm_delete_bc">
-                                <input type="submit" class="submit submit--dark" value="Cancel" name="proceed">
+                                <input type="submit" class="submit submit--dark" value="Cancel" name="back_to_book">
                             </div>
                         </form>
                 <?php }else{ ?>
                 <h1 class="header--big text--unbold text--italize text--capitalize"><?php echo $bookcase_name?></h1>
-                <?php echo isset($success) ? "<span class='success-message'" . $success . "</span>" : ""; ?>
+                <?php echo isset($success) ? "<span class='success-message'>" . $success . "</span>" : ""; ?>
                 <?php 
                     $user_id = $_SESSION['user'][0];
                     $query = "SELECT * FROM shelf JOIN bookcase ON shelf.bookcase_id = bookcase.bookcase_id WHERE bookcase.user_id = '$user_id' AND bookcase.bookcase_id = '$bookcase'";
