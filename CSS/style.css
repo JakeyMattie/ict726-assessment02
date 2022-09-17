@@ -51,7 +51,7 @@ h1 {
 }
 
 .error-message{
-    color: var(--red);
+    color: var(--dark);
 }
 
 .success-message{

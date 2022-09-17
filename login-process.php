@@ -45,6 +45,7 @@
                 $result = mysqli_query($db_connection, $checkUser);
                 if(mysqli_num_rows($result) == 1){
                     $user = mysqli_fetch_array($result);
+                    echo  json_encode($user, JSON_PRETTY_PRINT);
                     session_start();
                     $_SESSION['user'] = $user;
                     header("Location: index.php");
