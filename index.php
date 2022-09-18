@@ -64,7 +64,15 @@
                         value="Add New Bookcases" 
                         name="addNewBookcases"
                         onclick="location.href = '/dashboard/bookcase.php'">
-                   
+                    </div>
+                
+                <div>
+                        <input type="submit" 
+                        class="submit submit--dark" 
+                        value="Add New Book" 
+                        name="addNewBook"
+                        onclick="location.href = '/dashboard/addtolibrary.php'">
+                  
                  <!-- <p class="index-content__desc">Lorem ipsum something something subheading dolor sit amet.</p> -->
              </div>
         </main>

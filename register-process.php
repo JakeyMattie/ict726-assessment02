@@ -101,7 +101,15 @@
                         break;
                     }                    
                 case 10:
-                    header("Location: login.php?success=TRUE");
+                    $checkUser = "SELECT * FROM user WHERE username='$username' AND password='$hash'";
+                    $result = mysqli_query($db_connection, $checkUser);
+                    if(mysqli_num_rows($result) == 1){
+                        $user = mysqli_fetch_array($result);
+                        session_start();
+                        $_SESSION['user'] = $user;
+                        unset($_SESSION['error']);     
+                        header("Location: index.php");       
+                    }
                     break;
                 default:
                     $errors++;

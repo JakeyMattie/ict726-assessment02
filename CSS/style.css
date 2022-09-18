@@ -33,6 +33,11 @@ body, html {
     background-color: var(--main);
 }
 
+hr.horizontal-divider {
+    border-top: 1px solid #c59696;
+    width: 76%;
+}
+
 /* ----- Text Formatting */
 
 h1 {
@@ -46,7 +51,7 @@ h1 {
 }
 
 .error-message{
-    color: var(--red);
+    color: var(--dark);
 }
 
 .success-message{
@@ -438,6 +443,53 @@ footer {
 }
 
 /* ========== ADD TO LIBRARY.php */
+
+.library-container {
+    gap: 2em;
+    margin: 3em 0;
+
+}
+.library-container th, .library-container td {
+    padding: 0 0.5rem;
+}
+
+.library-container .reportWrapper {
+    width: 70%;
+    text-align: left;
+}
+
+.library-container .noRecord,
+.library-container .reportWrapper .noRecord {
+    color: red;
+    padding-left: 1rem;
+}
+
+.library-container .reportWrapper .bookcase {
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5rem;
+    padding-top: 1rem;
+}
+
+.library-container .reportWrapper .shelf {
+    padding-left: 1rem;
+    font-style: italic;
+    padding-bottom: 0.5rem;
+    padding-top: 1rem;
+}
+
+.library-container .reportWrapper .book {
+    padding-left: 2rem;
+    font-style: normal;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.library-container .reportWrapper .title,
+.library-container .reportWrapper .author {
+    text-transform: uppercase;
+    color: dodgerblue;
+    font-weight: 900;
+}
 
 /* ==================== MEDIA QUERIES ==================== */
 
